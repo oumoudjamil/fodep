@@ -8,56 +8,94 @@ public class Recette {
     String name;
     String photo;
     String duration;
-    Category category;
+    int categoryID;
+    String categoryName;
+    String categoryPhoto;
+    String description;
+    String ingredien;
+    String instruction;
 
     public Recette() {
     }
 
-    public Recette(int id, String name, String photo, String duration, Category category) {
-        this.id = id;
-        this.name = name;
-        this.photo = photo;
-        this.duration = duration;
-        this.category = category;
-    }
 
-    public long getId() {
+    public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
     }
 
+    public String getDuration() {
+        return duration;
+    }
+
     public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryPhoto() {
+        return categoryPhoto;
+    }
+
+    public void setCategoryPhoto(String categoryPhoto) {
+        this.categoryPhoto = categoryPhoto;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIngredien() {
+        return ingredien;
+    }
+
+    public void setIngredien(String ingredien) {
+        this.ingredien = ingredien;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
     }
 }

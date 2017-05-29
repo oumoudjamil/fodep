@@ -10,6 +10,7 @@ GET   /docs/*file                   controllers.Assets.at(path="/public/swagger-
 
 
 GET   /                             controllers.RecetteController.getAllRecette()
+GET   /getRecetteByCategorie        controllers.RecetteController.getRecetteByCategorie(id: Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
