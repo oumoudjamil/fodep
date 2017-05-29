@@ -8,9 +8,9 @@ GET   /swagger.json                 controllers.ApiHelpController.getResources
 GET   /docs/                        controllers.Assets.at(path="/public/swagger-ui",file="index.html")
 GET   /docs/*file                   controllers.Assets.at(path="/public/swagger-ui",file)
 
-
 GET   /                             controllers.RecetteController.getAllRecette()
-GET   /getRecetteByCategorie        controllers.RecetteController.getRecetteByCategorie(id: Int)
+GET   /getRecetteByCategorie/:id    controllers.RecetteController.getRecetteByCategorie(id: Int)
+
 
 
 # Map static resources from the /public folder to the /assets URL path
