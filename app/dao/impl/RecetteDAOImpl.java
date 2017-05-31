@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
     @Override
-    public ArrayList getAllRecette() throws SQLException {
+    public ArrayList<Recette> getAll() throws SQLException {
         Connection c = DB.getConnection();
         Statement statement;
         ArrayList<Recette> recettes = new ArrayList<>();
@@ -59,7 +59,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         Statement statement;
         ArrayList<Recette> recettes = new ArrayList<>();
         StringBuilder request = new StringBuilder(
-                "SELECT * from recette, category where recette.category=category.idC WHERE recette.category="+id );
+                "SELECT * from recette, category WHERE recette.category=category.idC AND recette.category="+id );
 
         try {
             statement = c.createStatement();

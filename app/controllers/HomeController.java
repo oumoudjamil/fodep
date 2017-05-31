@@ -13,7 +13,8 @@ public class HomeController extends Controller{
         response().setContentType("text/javascript");
         return ok(Routes.javascriptRouter("appRoutes",
                 routes.javascript.RecetteController.getAllRecette(),
-                routes.javascript.RecetteController.getRecetteByCategorie()
+                routes.javascript.RecetteController.getRecetteByCategorie(),
+                routes.javascript.RecetteController.getAllCategory()
 
         ));
     }

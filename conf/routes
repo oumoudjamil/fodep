@@ -10,6 +10,7 @@ GET   /docs/*file                   controllers.Assets.at(path="/public/swagger-
 
 GET   /                             controllers.RecetteController.getAllRecette()
 GET   /getRecetteByCategorie/:id    controllers.RecetteController.getRecetteByCategorie(id: Int)
+GET   /getAllCategory               controllers.RecetteController.getAllCategory()
 
 
 

@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class ServiceRecetteImpl implements DefaultService<Recette> , RecetteDAO{
 
     @Override
-    public ArrayList<Recette> getAllRecette() throws SQLException {
+    public ArrayList<Recette> getAll() throws SQLException {
         RecetteDAOImpl recetteDAO = new RecetteDAOImpl();
-        return recetteDAO.getAllRecette();
+        return recetteDAO.getAll();
     }
 
     @Override
