@@ -14,7 +14,8 @@ public class HomeController extends Controller{
         return ok(Routes.javascriptRouter("appRoutes",
                 routes.javascript.RecetteController.getAllRecette(),
                 routes.javascript.RecetteController.getRecetteByCategorie(),
-                routes.javascript.RecetteController.getAllCategory()
+                routes.javascript.RecetteController.getAllCategory(),
+                routes.javascript.RecetteController.addRecette()
 
         ));
     }

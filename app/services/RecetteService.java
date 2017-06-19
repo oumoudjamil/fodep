@@ -10,6 +10,8 @@ import java.util.ArrayList;
  */
 public interface RecetteService {
     ArrayList<Recette> getRecetteByCategorie(int id) throws SQLException;
-
+    boolean addRecette(String name, String photo,
+                       int duration, String category, String description,
+                       String ingredien, String instruction) throws SQLException;
 
 }

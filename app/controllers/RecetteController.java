@@ -5,7 +5,10 @@ import model.Category;
 import model.Recette;
 import play.mvc.Controller;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import play.Logger;
 import play.libs.Json;
@@ -102,6 +105,43 @@ public class RecetteController extends Controller {
         Logger.debug("recettes " + Json.toJson(recettes).toString());
 
         return ok(objectNode);
+    }
+
+    public Result addRecette(String name, String photo, int duration, String category, String description,
+                             String ingredien, String instruction) throws SQLException {
+        ObjectNode objectNode = Json.newObject();
+
+        try {
+            ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
+            boolean newRecette = serviceRecette.addRecette(name,photo, duration,category,description,ingredien,instruction);
+
+            Logger.info("REPONCE CREATION " + newRecette);
+
+            if (!newRecette) {
+                String message = "Parametres incorrect,La creation a echoue!";
+                objectNode.put("result","nok");
+                objectNode.put("code","3000");
+                objectNode.put("message",message);
+
+                return ok(objectNode);
+
+            }
+            String message = "Recette cree avec success!";
+            objectNode.put("result","ok");
+            objectNode.put("code","200");
+            objectNode.put("message",message);
+            return ok(objectNode);
+
+        } catch (NullPointerException e) {
+            Logger.error(e.getMessage());
+            String message = "Erreur interne Parametres incorrecte.";
+            objectNode.put("result","ok");
+            objectNode.put("code","3001");
+            objectNode.put("message",message);
+            return ok(objectNode);
+        } finally {
+
+        }
     }
 
 }

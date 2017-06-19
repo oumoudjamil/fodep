@@ -3,6 +3,8 @@ package dao.impl;
 import dao.DefaultDAO;
 import dao.RecetteDAO;
 import model.Recette;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import play.Logger;
 import play.db.DB;
 
@@ -22,7 +24,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         Statement statement;
         ArrayList<Recette> recettes = new ArrayList<>();
         StringBuilder request = new StringBuilder(
-                "SELECT * from recette, category where recette.category=category.idC " );
+                "SELECT * from recette, category where recette.category=category.idC ORDER BY id DESC" );
 
         try {
             statement = c.createStatement();
@@ -89,4 +91,53 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
             c.close();
         }
     }
+
+    @Override
+    public boolean addRecette(String name, String photo, int duration, String category, String description,
+                              String ingredien, String instruction) throws SQLException {
+        Connection connection = DB.getConnection();
+        Statement stm = null;
+        int idRecette = 0;
+
+        String req;
+
+        stm = connection.createStatement();
+        String request = "SELECT MAX(id) FROM recette";
+        ResultSet resultSet = stm.executeQuery(request);
+        if (resultSet.next()) {
+            idRecette=resultSet.getInt(1);
+            idRecette = idRecette+1;
+        }
+
+        req = "INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
+                " VALUES ('"+ idRecette + "','" + name + "' ,'" + photo +"' ,'" + duration +
+                "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";
+
+        Logger.debug("REQ " + req);
+        try {
+            int retour = stm.executeUpdate(req);
+            if (retour == 0) {
+                Logger.info("RETOUR ==> " + retour);
+                return false;
+            }
+            Logger.info("RETOUR STATEMENT ==> " + retour);
+            Logger.info("req ==> " + req);
+
+        } catch (SQLException e) {
+            Logger.error("newUser SQLException " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+
+            } catch (SQLException e) {
+                Logger.error("SQLExeption " + e.getMessage());
+            }
+        }
+        return true;
+    }
+
+
+
 }

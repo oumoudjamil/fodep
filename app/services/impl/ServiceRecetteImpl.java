@@ -24,4 +24,10 @@ public class ServiceRecetteImpl implements DefaultService<Recette> , RecetteDAO{
         RecetteDAOImpl recetteDAO = new RecetteDAOImpl();
         return recetteDAO.getRecetteByCategorie(id);
     }
+
+    @Override
+    public boolean addRecette(String name, String photo, int duration, String category, String description, String ingredien, String instruction) throws SQLException {
+        RecetteDAOImpl recetteDAO = new RecetteDAOImpl();
+        return recetteDAO.addRecette(name,photo, duration,category,description,ingredien,instruction);
+    }
 }
