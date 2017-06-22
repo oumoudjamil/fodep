@@ -22,7 +22,7 @@ public class CategoryDAOImpl implements DefaultDAO {
         Statement statement;
         ArrayList<Category> categories = new ArrayList<>();
         StringBuilder request = new StringBuilder(
-                "SELECT * from category " );
+                "SELECT * from category ORDER BY idc DESC" );
 
         try {
             statement = c.createStatement();
