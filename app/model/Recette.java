@@ -14,6 +14,7 @@ public class Recette {
     String description;
     String ingredien;
     String instruction;
+    String video;
 
     public Recette() {
     }
@@ -97,5 +98,13 @@ public class Recette {
 
     public void setInstruction(String instruction) {
         this.instruction = instruction;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

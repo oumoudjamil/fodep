@@ -8,10 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 import play.Logger;
 import play.db.DB;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +35,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 r.setDescription(resultSet.getString("description"));
                 r.setIngredien(resultSet.getString("ingredien"));
                 r.setInstruction(resultSet.getString("instruction"));
+                r.setVideo(resultSet.getString("video"));
                 r.setCategoryID(resultSet.getInt("idC"));
                 r.setCategoryName(resultSet.getString("nameC"));
                 r.setCategoryPhoto(resultSet.getString("photoC"));
@@ -75,6 +73,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 r.setDescription(resultSet.getString("description"));
                 r.setIngredien(resultSet.getString("ingredien"));
                 r.setInstruction(resultSet.getString("instruction"));
+                r.setVideo(resultSet.getString("video"));
                 r.setCategoryID(resultSet.getInt("idC"));
                 r.setCategoryName(resultSet.getString("nameC"));
                 r.setCategoryPhoto(resultSet.getString("photoC"));
@@ -93,10 +92,11 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
     }
 
     @Override
-    public boolean addRecette(String name, String photo, int duration, String category, String description,
+    public boolean addRecette(String name, String photo, String duration, String category, String description,
                               String ingredien, String instruction) throws SQLException {
         Connection connection = DB.getConnection();
         Statement stm = null;
+
         int idRecette = 0;
 
         String req;
@@ -109,9 +109,23 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
             idRecette = idRecette+1;
         }
 
-        req = "INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
-                " VALUES ('"+ idRecette + "','" + name + "' ,'" + photo +"' ,'" + duration +
+        req = "INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,DESCRIPTION,INGREDIEN,INSTRUCTION)" +
+                " VALUES ('"+ idRecette + "','" + name + "' ,'" + photo +"' ,' " + duration +
                 "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";
+
+        /**req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
+                " VALUES (?,?,?,?,?,?,?,?)";
+
+        preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, idRecette);
+        preparedStatement.setString(2, name);
+        preparedStatement.setString(3, photo);
+        preparedStatement.setInt(4, duration);
+        preparedStatement.setString(5, category);
+        preparedStatement.setString(6, ingredien);
+        preparedStatement.setString(7, instruction);
+
+        preparedStatement .executeUpdate();*/
 
         Logger.debug("REQ " + req);
         try {

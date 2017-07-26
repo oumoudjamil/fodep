@@ -1,14 +1,12 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Category;
 import model.Recette;
 import play.mvc.Controller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import play.Logger;
 import play.libs.Json;
@@ -16,6 +14,8 @@ import play.mvc.Result;
 import services.impl.ServiceCategoryImpl;
 import services.impl.ServiceRecetteImpl;
 import io.swagger.annotations.*;
+import tools.Log;
+
 
 /**
  * Created by djamil on 27/05/2017.
@@ -107,9 +107,20 @@ public class RecetteController extends Controller {
         return ok(objectNode);
     }
 
-    public Result addRecette(String name, String photo, int duration, String category, String description,
-                             String ingredien, String instruction) throws SQLException {
+    public Result addRecette() throws SQLException {
+
         ObjectNode objectNode = Json.newObject();
+        JsonNode json = request().body().asJson();
+        Log.logActionInputJson(request().body().toString());
+
+
+        String name = json.findPath("name").textValue();
+        String photo = json.findPath("photo").textValue();
+        String duration = json.findPath("duration").textValue();
+        String category = json.findPath("category").textValue();
+        String description = json.findPath("description").textValue();
+        String ingredien = json.findPath("ingredien").textValue();
+        String instruction = json.findPath("instruction").textValue();
 
         try {
             ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
