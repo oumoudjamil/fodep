@@ -129,7 +129,7 @@ public class RecetteController extends Controller {
             Logger.info("REPONCE CREATION " + newRecette);
 
             if (!newRecette) {
-                String message = "Parametres incorrect,La creation a echoue!";
+                String message = "Parametres incorrect,La creation a echoue !";
                 objectNode.put("result","nok");
                 objectNode.put("code","3000");
                 objectNode.put("message",message);
