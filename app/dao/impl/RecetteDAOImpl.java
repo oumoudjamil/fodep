@@ -36,6 +36,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 r.setIngredien(resultSet.getString("ingredien"));
                 r.setInstruction(resultSet.getString("instruction"));
                 r.setVideo(resultSet.getString("video"));
+                r.setIdRecette(resultSet.getString("idRecette"));
                 r.setCategoryID(resultSet.getInt("idC"));
                 r.setCategoryName(resultSet.getString("nameC"));
                 r.setCategoryPhoto(resultSet.getString("photoC"));
@@ -74,6 +75,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 r.setIngredien(resultSet.getString("ingredien"));
                 r.setInstruction(resultSet.getString("instruction"));
                 r.setVideo(resultSet.getString("video"));
+                r.setIdRecette(resultSet.getString("idRecette"));
                 r.setCategoryID(resultSet.getInt("idC"));
                 r.setCategoryName(resultSet.getString("nameC"));
                 r.setCategoryPhoto(resultSet.getString("photoC"));

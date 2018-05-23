@@ -3,7 +3,9 @@ package model;
 /**
  * Created by djamil on 26/05/2017.
  */
+
 public class Recette {
+
     int id;
     String name;
     String photo;
@@ -15,6 +17,7 @@ public class Recette {
     String ingredien;
     String instruction;
     String video;
+    String idRecette;
 
     public Recette() {
     }
@@ -106,5 +109,13 @@ public class Recette {
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public String getIdRecette() {
+        return idRecette;
+    }
+
+    public void setIdRecette(String idRecette) {
+        this.idRecette = idRecette;
     }
 }
