@@ -1,4 +1,4 @@
-name := """JusNaturel"""
+name := """jusnaturels"""
 
 version := "1.0-SNAPSHOT"
 
