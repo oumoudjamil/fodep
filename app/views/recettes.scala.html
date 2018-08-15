@@ -95,7 +95,7 @@
                                         <div class="panel-body no-padding">
                                             <table class="table table-bordered table-hover table-striped">
                                                 <thead>
-                                                  <th>Nom Categoriesss</th>
+                                                  <th>Nom Categorie</th>
                                                   <th>Photo</th>
                                                   <th>Action</th>
                                                 </thead>
@@ -197,9 +197,16 @@
                         <tr>
                             <td style="padding-top: 4%;" class="styleTD"> Image :</td>
                             <td>
-                                <img id="urlUpdate0" src="" alt="img1" style="height: 100px">
-                                <input id="urlUpdateInput0" type="text" class="form-control" placeholder="">
-                            </td></tr>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <progress value="0" max="100" id="uploader0"></progress>
+                                            <input type="file" id="fileButton0" class="dropify" data-height="200" />
+                                        </div>
+                                    </div>
+                                    <input id="urlTitre0" class="form-control form-control-sm" type="text" placeholder="Titre">
+                                </div>
+                        </tr>
                         <tr>
                             <td style="padding-top: 4%;" class="styleTD">Temps préparation :</td>
                             <td><input type="text" class="form-control" value="" name="search" id="tfadd_duration" placeholder="Temps prepation" /></td>
