@@ -2,6 +2,29 @@ $(document)
     .ready(
     function(e) {
 
+        var url0;
+        var ok = '1';
+        var nok = '0';
+        var idToUpdate;
+        var userPhoto = 'https://lh4.googleusercontent.com/-CAh1em4rHtY/AAAAAAAAAAI/AAAAAAAAABo/tBCr1kRuvLA/s96-c/photo.jpg';
+        var username = 'Modelic';
+        var idsender = 'fVJGwG3B8VR0Jj8PaOM6gFGs2kC3';
+        var config = {
+            apiKey: "AIzaSyBsfwHz82n_ZM15OZPoWNpoFg73uUsHIHg",
+            authDomain: "modelic-7b810.firebaseapp.com",
+            databaseURL: "https://modelic-7b810.firebaseio.com",
+            projectId: "modelic-7b810",
+            storageBucket: "modelic-7b810.appspot.com",
+            messagingSenderId: "737888261565"
+        };
+        firebase.initializeApp(config);
+            var commentsRef = firebase.database().ref('commentaires/'+"test");
+            var topUserInfos = firebase.database().ref('messages/'+idsender);
+            var uploader=document.getElementById('uploader0'),
+                uploader1=document.getElementById('uploader1'),
+                fileButton0=document.getElementById('fileButton0'),
+                password=document.getElementById('password-label');
+
       initPageElements();
 
         function getRecette() {
@@ -93,6 +116,31 @@ $(document)
            }
        });
        }
+
+        fileButton0.addEventListener('change', function(e) {
+            var file=e.target.files[0];
+            var storageRef=firebase.storage().ref("'/fileLocation/'"+file.name);
+            console.log(fileLocation);
+            var task=storageRef.put(file);
+            task.on('state_changed',
+                function progress(snapshot){
+                    var percentage=( snapshot.bytesTransferred / snapshot.totalBytes )*100;
+                    uploader.value=percentage;
+                    console.log(snapshot.toString());
+                    if (percentage==100){
+                        alert("file uploaded Successfully");
+                    }
+                },
+                function error(err){
+                    console.log("ERROR");
+                },
+                function complete(){
+                    var downloadURL = task.snapshot.downloadURL;
+                    console.log(downloadURL);
+                    url0 = downloadURL;
+                }
+            );
+        });
 
        function verifyBeforeDoCreateRecette(){
 
