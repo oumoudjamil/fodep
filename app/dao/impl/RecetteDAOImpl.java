@@ -111,23 +111,24 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
             idRecette = idRecette+1;
         }
 
-        req = "INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,DESCRIPTION,INGREDIEN,INSTRUCTION)" +
+        /**req = "INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,DESCRIPTION,INGREDIEN,INSTRUCTION)" +
                 " VALUES ('"+ idRecette + "','" + name + "' ,'" + photo +"' ,' " + duration +
-                "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";
+                "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";*/
 
-        /**req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
+        req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
                 " VALUES (?,?,?,?,?,?,?,?)";
 
+        PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
         preparedStatement = connection.prepareStatement(req);
         preparedStatement.setInt(1, idRecette);
         preparedStatement.setString(2, name);
         preparedStatement.setString(3, photo);
-        preparedStatement.setInt(4, duration);
+        preparedStatement.setString(4, duration);
         preparedStatement.setString(5, category);
         preparedStatement.setString(6, ingredien);
         preparedStatement.setString(7, instruction);
 
-        preparedStatement .executeUpdate();*/
+        preparedStatement .executeUpdate();
 
         Logger.debug("REQ " + req);
         try {

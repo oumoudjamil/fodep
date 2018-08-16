@@ -159,7 +159,7 @@ $(document)
                 alert('name obligatoire !!!');
                 $('#bt_ajouter_recette').attr("disabled", false);
             }
-            
+
             else if(duration == ''){
                 alert('duration obligatoire !!!');
                 $('#bt_ajouter_recette').attr("disabled", false);
