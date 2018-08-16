@@ -120,7 +120,7 @@ $(document)
         fileButton0.addEventListener('change', function(e) {
             var file=e.target.files[0];
             var storageRef=firebase.storage().ref("'/fileLocation/'"+file.name);
-            console.log(fileLocation);
+            console.log("fileLocation ", fileLocation);
             var task=storageRef.put(file);
             task.on('state_changed',
                 function progress(snapshot){
@@ -159,10 +159,7 @@ $(document)
                 alert('name obligatoire !!!');
                 $('#bt_ajouter_recette').attr("disabled", false);
             }
-            else if(photo == ''){
-                alert('photo obligatoire !!!');
-                $('#bt_ajouter_recette').attr("disabled", false);
-            }
+            
             else if(duration == ''){
                 alert('duration obligatoire !!!');
                 $('#bt_ajouter_recette').attr("disabled", false);
