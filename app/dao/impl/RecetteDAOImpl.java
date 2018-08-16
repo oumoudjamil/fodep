@@ -116,7 +116,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";*/
 
         req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
-                " VALUES (?,?,?,?,?,?,?,?)";
+                " VALUES (?,?,?,?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
         preparedStatement = connection.prepareStatement(req);
