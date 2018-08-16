@@ -116,7 +116,7 @@ public class RecetteController extends Controller {
 
         String name = json.findPath("name").textValue();
         String photo = json.findPath("photo").textValue();
-        String duration = json.findPath("duration").textValue();
+        int duration = Integer.parseInt(json.findPath("duration").textValue());
         String category = json.findPath("category").textValue();
         String description = json.findPath("description").textValue();
         String ingredien = json.findPath("ingredien").textValue();

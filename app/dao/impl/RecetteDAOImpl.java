@@ -94,7 +94,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
     }
 
     @Override
-    public boolean addRecette(String name, String photo, String duration, String category, String description,
+    public boolean addRecette(String name, String photo, int duration, String category, String description,
                               String ingredien, String instruction) throws SQLException {
         Connection connection = DB.getConnection();
         Statement stm = null;
@@ -123,7 +123,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         preparedStatement.setInt(1, idRecette);
         preparedStatement.setString(2, name);
         preparedStatement.setString(3, photo);
-        preparedStatement.setString(4, duration);
+        preparedStatement.setInt(4, duration);
         preparedStatement.setString(5, category);
         preparedStatement.setString(6, ingredien);
         preparedStatement.setString(7, instruction);
