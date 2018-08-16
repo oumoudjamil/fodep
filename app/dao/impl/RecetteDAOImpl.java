@@ -101,8 +101,6 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
 
         int idRecette = 0;
 
-        String req;
-
         stm = connection.createStatement();
         String request = "SELECT MAX(id) FROM recette";
         ResultSet resultSet = stm.executeQuery(request);
@@ -115,11 +113,12 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 " VALUES ('"+ idRecette + "','" + name + "' ,'" + photo +"' ,' " + duration +
                 "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";*/
 
-        req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,DESCRIPTION,INGREDIEN,INSTRUCTION) " +
-                " VALUES (?,?,?,?,?,?,?,?)";
+        StringBuilder req =  new StringBuilder(
+                " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,DESCRIPTION,INGREDIEN,INSTRUCTION) " +
+                " VALUES (?,?,?,?,?,?,?,?)");
 
         PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
-        preparedStatement = connection.prepareStatement(req);
+
         preparedStatement.setInt(1, idRecette);
         preparedStatement.setString(2, name);
         preparedStatement.setString(3, photo);
@@ -132,27 +131,11 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         preparedStatement .executeUpdate();
 
         Logger.debug("REQ " + req);
-        try {
-            int retour = stm.executeUpdate(req);
-            if (retour == 0) {
-                Logger.info("RETOUR ==> " + retour);
-                return false;
-            }
-            Logger.info("RETOUR STATEMENT ==> " + retour);
-            Logger.info("req ==> " + req);
 
-        } catch (SQLException e) {
-            Logger.error("newUser SQLException " + e.getMessage());
-            return false;
-        } finally {
-            try {
-                stm.close();
-                connection.close();
+        stm.close();
+        connection.close();
 
-            } catch (SQLException e) {
-                Logger.error("SQLExeption " + e.getMessage());
-            }
-        }
+
         return true;
     }
 
