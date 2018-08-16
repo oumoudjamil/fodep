@@ -145,7 +145,7 @@ $(document)
        function verifyBeforeDoCreateRecette(){
 
             var name = $('#tfadd_name').val();
-            var photo = $('#tfadd_photo').val();
+            var photo = fileLocation;
             var duration = $('#tfadd_duration').val();
             var categorie = $('#seladd_categorie').val();
             var information = $('#tfadd_description').val();
