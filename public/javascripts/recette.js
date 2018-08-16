@@ -44,7 +44,8 @@ $(document)
                             html += '<td>' + recette[i].description+   '</td>';
                             html += '<td>' + recette[i].ingredien+   '</td>';
                             html += '<td>' + recette[i].instruction+   '</td>';
-
+                            html+='<td><button type="button" class="btn btn-danger btn-icon btn-xs line_button" data-toggle="modal" data-target="#pop-details-user" id="line_action-'+recette[i].photo+'"> Action <i class="fa fa-fire"></i> </button></td>';
+                            html+='<td><button type="button" class="btn btn-black btn-xs line_supp" id="line_supp-'+recette[i].photo+'"><i class="fa fa-trash"></i> </button></td>';
 
                             html += '</tr>';
                             $('#tbodyRecette').append(html);
@@ -151,9 +152,6 @@ $(document)
             var information = $('#tfadd_description').val();
             var ingredien = $('#tfadd_ingredien').val();
             var instruction = $('#tfadd_preparation').val();
-
-            console.log("url01 ",url0);
-            console.log("photo ",photo);
 
             if(name == ''){
                 alert('name obligatoire !!!');
