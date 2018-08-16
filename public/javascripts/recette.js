@@ -136,7 +136,7 @@ $(document)
                 },
                 function complete(){
                     var downloadURL = task.snapshot.downloadURL;
-                    console.log(downloadURL);
+                    console.log("url0 ",downloadURL);
                     url0 = downloadURL;
                 }
             );
@@ -151,6 +151,9 @@ $(document)
             var information = $('#tfadd_description').val();
             var ingredien = $('#tfadd_ingredien').val();
             var instruction = $('#tfadd_preparation').val();
+
+            console.log("url01 ",url0);
+            console.log("photo ",photo);
 
             if(name == ''){
                 alert('name obligatoire !!!');
