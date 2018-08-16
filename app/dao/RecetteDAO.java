@@ -11,6 +11,6 @@ import java.util.ArrayList;
 public interface RecetteDAO {
     ArrayList<Recette> getRecetteByCategorie(int id) throws SQLException;
     boolean addRecette(String name, String photo,
-                           int duration, String category, String description,
+                           int duration, int category, String description,
                        String ingredien, String instruction) throws SQLException;
 }

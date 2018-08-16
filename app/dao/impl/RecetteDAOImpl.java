@@ -94,7 +94,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
     }
 
     @Override
-    public boolean addRecette(String name, String photo, int duration, String category, String description,
+    public boolean addRecette(String name, String photo, int duration, int category, String description,
                               String ingredien, String instruction) throws SQLException {
         Connection connection = DB.getConnection();
         Statement stm = null;
@@ -115,8 +115,8 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 " VALUES ('"+ idRecette + "','" + name + "' ,'" + photo +"' ,' " + duration +
                 "' ,'" + category +"' ,'" + description+"' ,'" + ingredien +"' ,'" + instruction +"')";*/
 
-        req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,INGREDIEN,INSTRUCTION) " +
-                " VALUES (?,?,?,?,?,?,?)";
+        req =   " INSERT INTO RECETTE(ID,NAME,PHOTO,DURATION,CATEGORY,DESCRIPTION,INGREDIEN,INSTRUCTION) " +
+                " VALUES (?,?,?,?,?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
         preparedStatement = connection.prepareStatement(req);
@@ -124,9 +124,10 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         preparedStatement.setString(2, name);
         preparedStatement.setString(3, photo);
         preparedStatement.setInt(4, duration);
-        preparedStatement.setString(5, category);
-        preparedStatement.setString(6, ingredien);
-        preparedStatement.setString(7, instruction);
+        preparedStatement.setInt(5, category);
+        preparedStatement.setString(6, description);
+        preparedStatement.setString(7, ingredien);
+        preparedStatement.setString(8, instruction);
 
         preparedStatement .executeUpdate();
 
