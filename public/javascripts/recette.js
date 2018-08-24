@@ -44,12 +44,52 @@ $(document)
                             html += '<td>' + recette[i].description+   '</td>';
                             html += '<td>' + recette[i].ingredien+   '</td>';
                             html += '<td>' + recette[i].instruction+   '</td>';
-                            html+='<td><button type="button" class="btn btn-danger btn-icon btn-xs line_button" data-toggle="modal" data-target="#pop-details-user" id="line_action-'+recette[i].photo+'"> Action <i class="fa fa-fire"></i> </button></td>';
-                            html+='<td><button type="button" class="btn btn-black btn-xs line_supp" id="line_supp-'+recette[i].photo+'"><i class="fa fa-trash"></i> </button></td>';
+                            html += '<td><button type="button" class="btn btn-danger btn-icon btn-xs line_button" data-toggle="modal" data-target="#pop-details-user" id="line_action-'+recette[i].id+'"> Action <i class="fa fa-fire"></i> </button></td>';
+                            html += '<td><button type="button" class="btn btn-black btn-xs line_supp" id="line_supp-'+recette[i].id+'"><i class="fa fa-trash"></i> </button></td>';
 
                             html += '</tr>';
                             $('#tbodyRecette').append(html);
                         }
+
+                        $(".line_button")
+                                                .click(
+                                                function() {
+                                                    var id = $(this).attr('id');
+                                                    var sp = id.split('-');
+
+                                                    showuser(sp[1]);
+                                                    $('#id_selected_user').val(sp[1]);
+
+                                                  /*   $('#bt_desactive_user').click(function() {
+                                                        desactiveruser(sp[1]);
+                                                      });
+                                                     $('#bt_active_user').click(function() {
+                                                         activeruser(sp[1]);
+                                                     });
+
+                                                     $('#bt_valider_modif_user').click(function() {
+                                                        verifyBeforeUpdate(sp[1]);
+                                                     });
+
+                                                     */
+
+                                                });
+
+
+                                            $(".line_supp")
+                                                .click(
+                                                function() {
+                                                    var id = $(this).attr('id');
+                                                    var sp = id.split('-');
+                                                    console.log(sp);
+
+                                             var reponse = window.confirm("Souhaitez-vous vraiment supprimer cet utilisateur ?");
+                                                    if(reponse)
+                                                    {
+                                                        deleteuser(sp[1]);
+                                                    }
+                                                });
+
                     } else if (data.result == "nok") {
                         alert(data.message);
                     }
