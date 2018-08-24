@@ -249,6 +249,79 @@
 </div>
 
 
+<!-- Modifier Recette -->
+<div class="modal fade" id="updateRecette" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog details">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#fff"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelp" style="padding-left:10px">Modifier Recette</h4>
+            </div>
+            <div id="touche_popp" class="modal-body">
+                <td class="container" style="width:533px;">
+                    <table id="tabRecettesp" class="table table-bordered table-hover table-striped">
+                        <tbody>
+                        <tr>
+
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD"> Nom :</td>
+                            <td><input class="form-control"  value=""  name="search" id="tfupdate_name" placeholder="Nom" /></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD"> Image :</td>
+                            <td>
+                                <div class="row">
+                                    <input type="text" class="form-control" id="fileLocationupdate" style="display:none;">
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <progress value="0" max="100" id="uploader"></progress>
+                                            <input type="file" id="fileButton" class="dropify" data-height="200" />
+                                        </div>
+                                    </div>
+                                    <input id="urlTitre" class="form-control form-control-sm" type="text" placeholder="Titre">
+                                </div>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD">Temps préparation :</td>
+                            <td><input type="text" class="form-control" value="" name="search" id="tfupdate_duration" placeholder="Temps prepation" /></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD">Categorie :</td>
+                            <td><select class="form-control" value="0" id="selupdate_categorie"></select></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD">Information :</td>
+                            <td><input type="text" class="form-control" value="" name="search" id="tfupdate_description" placeholder="Description" /></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD">Ingredien :</td>
+                            <td>
+                                <textarea id="tfupdate_ingredien" rows="10" cols="70" placeholder="Ingredien" ></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 4%;" class="styleTD">Instruction :</td>
+                            <td>
+                                ​<textarea id="tfupdate_preparation" rows="30" cols="70" placeholder="Preparation"></textarea>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="btn btn-danger btn-icon" id="bt_modifier_recette">Modifier<i class="fa fa-check"></i></div>
+            <div class="btn btn-danger btn-icon" id="bt_annuler_update_recette">Annuler<i class="fa fa-close"></i></div>
+        </div>
+    </div>
+</div>
+</div>
+
+
 <!-- Creer Categorie -->
 <div class="modal fade" id="addCatogorie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog details">
