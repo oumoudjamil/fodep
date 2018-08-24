@@ -17,6 +17,7 @@ GET   /                                 controllers.RecetteController.getAllRece
 GET   /getRecetteByCategorie            controllers.RecetteController.getRecetteByCategorie(id: Int)
 GET   /getAllCategory                   controllers.RecetteController.getAllCategory()
 POST  /addRecette                       controllers.RecetteController.addRecette()
+GET   /delRecette                       controllers.RecetteController.delRecette(id: Int)
 
 
 

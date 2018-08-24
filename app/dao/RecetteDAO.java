@@ -1,5 +1,6 @@
 package dao;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Recette;
 
 import java.sql.SQLException;
@@ -13,4 +14,5 @@ public interface RecetteDAO {
     boolean addRecette(String name, String photo,
                            int duration, int category, String description,
                        String ingredien, String instruction) throws SQLException;
+    ObjectNode delRecette(int id) throws SQLException;
 }

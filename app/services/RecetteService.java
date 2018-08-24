@@ -1,5 +1,6 @@
 package services;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Recette;
 
 import java.sql.SQLException;
@@ -13,5 +14,6 @@ public interface RecetteService {
     boolean addRecette(String name, String photo,
                        int duration, String category, String description,
                        String ingredien, String instruction) throws SQLException;
+    ObjectNode delRecette(int id) throws SQLException;
 
 }

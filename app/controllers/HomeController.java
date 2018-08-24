@@ -38,8 +38,8 @@ public class HomeController extends Controller{
                 routes.javascript.RecetteController.addRecette(),
                 routes.javascript.HomeController.recette(),
                 routes.javascript.HomeController.menu(),
-                routes.javascript.HomeController.single()
-
+                routes.javascript.HomeController.single(),
+                routes.javascript.RecetteController.delRecette()
         ));
     }
 

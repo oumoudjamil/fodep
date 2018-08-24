@@ -86,7 +86,7 @@ $(document)
                                              var reponse = window.confirm("Souhaitez-vous vraiment supprimer cet utilisateur ?");
                                                     if(reponse)
                                                     {
-                                                        deleteuser(sp[1]);
+                                                        deleterecette(sp[1]);
                                                     }
                                                 });
 
@@ -132,6 +132,34 @@ $(document)
                     $(".imload").fadeOut("1000");
                 }
             });
+        }
+
+        function deleterecette(id) {
+        $(".imloadDialog").fadeIn("1000");
+        appRoutes.controllers.RecetteController.delRecette(id).ajax({
+            success : function (data) {
+                if(data.result == "ok"){
+                    $(".imloadDialog").fadeIn("1000");
+                    $('#btnClose').click();
+                    alert(data.message);
+                    getUsers();
+                }else {
+                    $(".imloadDialog").fadeIn("1000");
+                    $('#btnClose').click();
+                    alert(data.message);
+                }
+            },
+            error: function (xmlHttpReques,chaineRetourne,objetExeption) {
+                if(objetExeption == "Unauthorized"){
+                    $(location).attr('href',"/");
+                }
+                $(".imloadDialog").fadeIn("1000");
+                $('#btnClose').click();
+                alert(data.message);
+            }
+        });
+        $(".imloadDialog").fadeIn("1000");
+        $('#btnConfirm').attr("disabled", false);
         }
 
         function initPageElements() {

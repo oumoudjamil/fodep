@@ -107,6 +107,14 @@ public class RecetteController extends Controller {
         return ok(objectNode);
     }
 
+    public Result delRecette(int id) throws SQLException {
+        Log.logActionHeader("delete recette");
+        ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
+        Logger.debug("delRecetteById -- id : " + id);
+        return ok(serviceRecette.delRecette(id));
+
+    }
+
     public Result addRecette() throws SQLException {
 
         ObjectNode objectNode = Json.newObject();

@@ -1,5 +1,6 @@
 package dao.impl;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import dao.DefaultDAO;
 import dao.RecetteDAO;
 import model.Recette;
@@ -7,6 +8,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import play.Logger;
 import play.db.DB;
+import play.libs.Json;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -139,6 +141,36 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         return true;
     }
 
+    @Override
+    public ObjectNode delRecette(int id) throws SQLException {
+        Connection c = DB.getConnection();
+        Statement stm = null;
+        ObjectNode result = Json.newObject();
 
+        stm = c.createStatement();
+        String req = "Delete from recette where id='" + id + "'";
+
+        Logger.debug("REQ " + req);
+
+        try {
+            int i = stm.executeUpdate(req);
+
+            Logger.debug("i " + i);
+            if ( i>0) {
+                result.put("result", "ok");
+                result.put("message", "Suppression effectuee avec succees");
+            }
+        } catch (SQLException e) {
+            Logger.error("delUser SQLException " + e.getMessage());
+            stm.close();
+            c.close();
+            result.put("nok", "Une erreur s'est produite");
+
+        } finally {
+            c.close();
+        }
+
+        return result;
+    }
 
 }
