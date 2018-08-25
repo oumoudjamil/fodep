@@ -56,7 +56,8 @@ $(document)
                             function() {
                             var id = $(this).attr('id');
                             var sp = id.split('-');
-                            showRecette("id--", sp[1]);
+                            console("id---",sp[1])
+                            showRecette(sp[1]);
                         });
 
                         $(".line_supp")
@@ -280,7 +281,7 @@ $(document)
          });
 
 
-function showRecette(id) {
+    function showRecette(id) {
       $(".imload").fadeIn("1000");
             appRoutes.controllers.RecetteController.getRecettebyId(id).ajax({
                 success: function (data) {
