@@ -55,9 +55,9 @@ $(document)
                             .click(
                             function() {
                             var id = $(this).attr('id');
-                            var sp = id.split('-');
-                            console.log("id---",sp[1])
-                            showRecette(sp[1]);
+                            var sp1 = id.split('-');
+                            console.log("id---",sp1[1])
+                            showRecette(sp1[1]);
                         });
 
                         $(".line_supp")
