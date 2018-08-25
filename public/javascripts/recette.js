@@ -51,14 +51,7 @@ $(document)
                             $('#tbodyRecette').append(html);
                         }
 
-                        $(".line_button")
-                            .click(
-                            function() {
-                            var id = $(this).attr('id');
-                            var sp1 = id.split('-');
-                            console.log("id---",sp1[1])
-                            showRecette(sp1[1]);
-                        });
+              
 
                         $(".line_supp")
                             .click(
