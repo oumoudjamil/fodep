@@ -163,4 +163,19 @@ public class RecetteController extends Controller {
         }
     }
 
+    public Result getRecettebyId(int id) throws SQLException {
+        Logger.debug("showdetail -- id :" + id);
+        ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
+        ArrayList<Recette> recettes = serviceRecette.getRecettebyId(id);
+
+        ObjectNode objectNode = Json.newObject();
+
+        objectNode.put("result", "ok");
+        objectNode.put("code", "200");
+        objectNode.put("message", "");
+        objectNode.put("recettesbyid", Json.toJson(recettes));
+        Logger.debug("recettesbyid " + Json.toJson(recettes).toString());
+
+        return ok(objectNode);
+    }
 }

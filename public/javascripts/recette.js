@@ -52,43 +52,26 @@ $(document)
                         }
 
                         $(".line_button")
-                                                .click(
-                                                function() {
-                                                    var id = $(this).attr('id');
-                                                    var sp = id.split('-');
+                            .click(
+                            function() {
+                            var id = $(this).attr('id');
+                            var sp = id.split('-');
+                            showRecette(sp[1]);
+                        
 
-                                                    showuser(sp[1]);
-                                                    $('#id_selected_user').val(sp[1]);
+                        $(".line_supp")
+                            .click(
+                            function() {
+                            var id = $(this).attr('id');
+                            var sp = id.split('-');
+                            console.log(sp);
 
-                                                  /*   $('#bt_desactive_user').click(function() {
-                                                        desactiveruser(sp[1]);
-                                                      });
-                                                     $('#bt_active_user').click(function() {
-                                                         activeruser(sp[1]);
-                                                     });
-
-                                                     $('#bt_valider_modif_user').click(function() {
-                                                        verifyBeforeUpdate(sp[1]);
-                                                     });
-
-                                                     */
-
-                                                });
-
-
-                                            $(".line_supp")
-                                                .click(
-                                                function() {
-                                                    var id = $(this).attr('id');
-                                                    var sp = id.split('-');
-                                                    console.log(sp);
-
-                                             var reponse = window.confirm("Souhaitez-vous vraiment supprimer cet utilisateur ?");
-                                                    if(reponse)
-                                                    {
-                                                        deleterecette(sp[1]);
-                                                    }
-                                                });
+                            var reponse = window.confirm("Souhaitez-vous vraiment supprimer cet utilisateur ?");
+                                if(reponse)
+                                {
+                                    deleterecette(sp[1]);
+                                }
+         });
 
                     } else if (data.result == "nok") {
                         alert(data.message);
@@ -142,7 +125,7 @@ $(document)
                     $(".imloadDialog").fadeIn("1000");
                     $('#btnClose').click();
                     alert(data.message);
-                    getUsers();
+                    getRecette();
                 }else {
                     $(".imloadDialog").fadeIn("1000");
                     $('#btnClose').click();
@@ -296,5 +279,39 @@ $(document)
                $("#addRecette").modal("hide");
          });
 
+
+function showRecette(id) {
+      $(".imload").fadeIn("1000");
+            appRoutes.controllers.RecetteController.getRecettebyId(id).ajax({
+                success: function (data) {
+                    if (data.result == "ok"){
+                        var recette = data.recettesbyid;
+
+                        for (var i in recette) {
+                            var html = '';
+                            html += '<tr id="' + recette[i].id + '">';
+                            $('#tfupdate_name').val(recette[i].name);
+                            $('#urlTitre').val(recette[i].photo);
+                            $('#tfupdate_duration').val(recette[i].duration);
+                            $('#selupdate_categorie option[value="'+recette[i].categoryName+'"]').prop("selected",true);
+                            $('#tfupdate_description').val(recette[i].description);
+                            $('#tfupdate_ingredien').val(recette[i].ingredien);
+                            $('#tfupdate_preparation').val(recette[i].instruction);
+
+                            html += '</tr>';
+                            $('#tabRecettesp').append(html);
+
+                        }
+                    }
+                    $(".imload").fadeOut("1000");
+                },
+                error: function (xmlHttpReques, chaineRetourne, objetExeption) {
+                    if (objetExeption == "Unauthorized") {
+                        $(location).attr('href', "/");
+                    }
+                    $(".imload").fadeOut("1000");
+                 }
+            });
+        }
 
     });
