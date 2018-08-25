@@ -73,7 +73,7 @@ $(document)
                             var id = $(this).attr('id');
                             var sp1 = id.split('-');
                             console.log("id---",sp1[1])
-                            //showRecette(sp1[1]);
+                            showRecette(sp1[1]);
                         });
 
 
