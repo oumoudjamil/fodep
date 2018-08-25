@@ -57,7 +57,7 @@ $(document)
                             var id = $(this).attr('id');
                             var sp = id.split('-');
                             showRecette(sp[1]);
-                        
+                        });
 
                         $(".line_supp")
                             .click(
@@ -71,7 +71,7 @@ $(document)
                                 {
                                     deleterecette(sp[1]);
                                 }
-         });
+                          });
 
                     } else if (data.result == "nok") {
                         alert(data.message);
