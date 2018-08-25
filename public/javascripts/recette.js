@@ -51,7 +51,7 @@ $(document)
                             $('#tbodyRecette').append(html);
                         }
 
-              
+
 
                         $(".line_supp")
                             .click(
@@ -66,6 +66,17 @@ $(document)
                                     deleterecette(sp[1]);
                                 }
                           });
+
+                        $(".line_button")
+                            .click(
+                            function() {
+                            var id = $(this).attr('id');
+                            var sp1 = id.split('-');
+                            console.log("id---",sp1[1])
+                            //showRecette(sp1[1]);
+                        });
+
+
 
                     } else if (data.result == "nok") {
                         alert(data.message);
@@ -249,6 +260,7 @@ $(document)
                     $('#seladd_categorie option[value="1"]').prop("selected",true);
                     //getRecette();
                     $("#addRecette").modal("hide");
+                    getRecette();
 
                 }
                 else{
