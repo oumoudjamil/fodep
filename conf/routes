@@ -19,9 +19,7 @@ GET   /getAllCategory                   controllers.RecetteController.getAllCate
 POST  /addRecette                       controllers.RecetteController.addRecette()
 GET   /delRecette                       controllers.RecetteController.delRecette(id: Int)
 GET   /getRecette                       controllers.RecetteController.getRecettebyId(id: Int)
-GET   /updateRecette                    controllers.RecetteController.updateRecette(id: Int,name: String,photo: String,
-                                        duration: Int,categoryName: Int,description: String,ingredien: String,
-                                        instruction: String)
+GET   /updateRecette                    controllers.RecetteController.updateRecette(id: Int,name: String,photo: String, duration: Int,categoryName: Int,description: String,ingredien: String,instruction: String)
 
 
 
