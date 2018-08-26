@@ -372,7 +372,7 @@ $(document)
                  'instruction' : instruction
              };
              console.log(" selected user id = "+id);
-             updateUtilisateur(id,name,photo,duration,categoryName,description,ingredien,instruction);
+             updateRecette(id,name,photo,duration,categoryName,description,ingredien,instruction);
 
          }
      }
@@ -404,6 +404,8 @@ $(document)
     }
 
     $('#bt_modifier_recette').click(function() {
-            verifyBeforeUpdate($('#id_selected_user').val());
-        });
+        verifyBeforeUpdate($('#id_selected_user').val());
+    });
+
+
     });
