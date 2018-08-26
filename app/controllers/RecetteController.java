@@ -4,9 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Category;
 import model.Recette;
+import play.db.DB;
 import play.mvc.Controller;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import play.Logger;
 import play.libs.Json;
@@ -177,5 +181,37 @@ public class RecetteController extends Controller {
         Logger.debug("recettesbyid " + Json.toJson(recettes).toString());
 
         return ok(objectNode);
+    }
+
+    public Result updateRecette(int id, String name, String photo, int duration,
+                                    int categoryName,
+                                    String description, String ingredien, String instruction) throws SQLException {
+        Log.logActionHeader("update");
+        ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
+
+        try {
+
+            boolean user = serviceRecette
+                    .updateRecette(id,name,photo,duration,categoryName,description,ingredien,instruction);
+
+            Logger.info("REPONCE UPDATE RECETTE" + user);
+
+            ObjectNode objectNode = Json.newObject();
+            objectNode.put("result", "ok");
+            objectNode.put("code", "200");
+            objectNode.put("message", "Recette modifie avec success!");
+
+            Log.logActionOutput(objectNode.toString());
+            return ok(objectNode);
+
+        } catch (NullPointerException e) {
+            Logger.error(e.getMessage());
+            ObjectNode objectNode = Json.newObject();
+            objectNode.put("result", "ok");
+            objectNode.put("code", "3001");
+            objectNode.put("message", "Erreur interne Parametres incorrecte.");
+            Log.logActionOutput(objectNode.toString());
+            return ok(objectNode);
+        }
     }
 }

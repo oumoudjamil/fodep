@@ -168,6 +168,7 @@ $(document)
                    var html = '';
                    html='<option value="'+categories[i].categoryID+'">'+categories[i].categoryName+'</option>';
                    $('#seladd_categorie').append(html);
+                   $('#selupdate_categorie').append(html);
                }
                }
            }
@@ -321,4 +322,88 @@ $(document)
             });
         }
 
+    function verifyBeforeUpdate(id){
+
+         $('#bt_modifier_recette').attr("disabled", true);
+         var name = $('#tfupdate_name').val();
+         var photo = $('#urlTitre').val();
+         var duration = $('#tfupdate_duration').val();
+         var categoryName = $('#selupdate_categorie').val();
+         var description = $('#tfupdate_description').val();
+         var ingredien = $('#tfupdate_ingredien').val();
+         var instruction = $('#tfupdate_preparation').val();
+
+         if(name == ''){
+             alert('nom obligatoire !!!');
+             $('#bt_modifier_recette').attr("disabled", false);
+         }
+         else if(photo == ''){
+             alert('photo obligatoire !!!');
+             $('#bt_modifier_recette').attr("disabled", false);
+         }
+         else if(duration == ''){
+             alert('duration obligatoire !!!');
+             $('#bt_modifier_recette').attr("disabled", false);
+         }
+         else if(categoryName == ''){
+              alert('categorie obligatoire !!!');
+              $('#bt_modifier_recette').attr("disabled", false);
+          }
+          else if(description == ''){
+               alert('description obligatoire !!!');
+               $('#bt_modifier_recette').attr("disabled", false);
+           }
+           else if(ingredien == ''){
+                alert('ingredien obligatoire !!!');
+                $('#bt_modifier_recette').attr("disabled", false);
+            }
+            else if(instruction == ''){
+                alert('instruction obligatoire !!!');
+                $('#bt_modifier_recette').attr("disabled", false);
+            }
+         else {
+             var data ={
+                 'name' : name,
+                 'photo' : photo,
+                 'duration' : duration,
+                 'categoryName' : categoryName,
+                 'description' : description,
+                 'ingredien' : ingredien,
+                 'instruction' : instruction
+             };
+             console.log(" selected user id = "+id);
+             updateUtilisateur(id,name,photo,duration,categoryName,description,ingredien,instruction);
+
+         }
+     }
+
+     function updateRecette(id,name,photo,duration,categoryName,description,ingredien,instruction){
+     $(".imloadAdd").fadeIn("1000");
+     appRoutes.controllers.RecetteController.updateRecette(id,name,photo,duration,categoryName,description,ingredien,instruction).ajax({
+         success : function (json) {
+
+             if (json.result == "ok") {
+                 alert(json.message);
+                 getRecette();
+                 $("#updateRecette").modal("hide");
+             }
+             else{
+                 alert(json.message);
+                 $('#bt_modifier_recette').attr("disabled", false);
+             }
+             $(".imloadAdd").fadeOut("1000");
+         },
+         error: function (xmlHttpReques,chaineRetourne,objetExeption) {
+             if(objetExeption == "Unauthorized"){
+                 $(location).attr('href',"/");
+             }
+             $(".imload").fadeOut("1000");
+
+         }
+     });
+    }
+
+    $('#bt_modifier_recette').click(function() {
+            verifyBeforeUpdate($('#id_selected_user').val());
+        });
     });

@@ -212,4 +212,36 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         return result;
     }
 
+    @Override
+    public boolean updateRecette(int id, String name, String photo, int duration,
+                                        int category,
+                                        String description, String ingredien, String instruction) throws SQLException {
+        Connection connection = DB.getConnection();
+        Statement stm = null;
+        stm = connection.createStatement();
+
+        StringBuilder req =  new StringBuilder(
+        "UPDATE RECETTE SET NAME=?,PHOTO=?,DURATION=?,USEREMAIL=?,USERTEL=?,PROFILID=? WHERE USERID=?");
+
+        PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
+
+        preparedStatement.setInt(1, id);
+        preparedStatement.setString(2, name);
+        preparedStatement.setString(3, photo);
+        preparedStatement.setInt(4, duration);
+        preparedStatement.setInt(5, category);
+        preparedStatement.setString(6, description);
+        preparedStatement.setString(7, ingredien);
+        preparedStatement.setString(8, instruction);
+
+        preparedStatement .executeUpdate();
+
+        Logger.debug("REQ " + req);
+
+        stm.close();
+        connection.close();
+
+
+        return true;
+    }
 }

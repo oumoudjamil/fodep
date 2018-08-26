@@ -16,4 +16,7 @@ public interface RecetteService {
                        String ingredien, String instruction) throws SQLException;
     ObjectNode delRecette(int id) throws SQLException;
     ArrayList<Recette> getRecettebyId(int id) throws SQLException;
+    boolean updateRecette(int id, String name, String photo, int duration,
+                                 int category,
+                                 String description, String ingredien, String instruction) throws SQLException;
 }
