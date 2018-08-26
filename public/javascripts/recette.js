@@ -74,6 +74,7 @@ $(document)
                             var sp1 = id.split('-');
                             console.log("id---",sp1[1])
                             showRecette(sp1[1]);
+                            $('#id_selected_recette').val(sp1[1]);
                         });
 
 
@@ -404,7 +405,7 @@ $(document)
     }
 
     $('#bt_modifier_recette').click(function() {
-        verifyBeforeUpdate($('#id_selected_user').val());
+        verifyBeforeUpdate($('#id_selected_recette').val());
     });
 
 
