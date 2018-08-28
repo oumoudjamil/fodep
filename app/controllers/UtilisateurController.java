@@ -46,7 +46,7 @@ public class UtilisateurController {
                     play.mvc.Controller.ctx().session().put(Const.SESSION_LOGIN, login);
                     play.mvc.Controller.ctx().session().put(Const.SESSION_ID_USER, UtilisateurDaoImpl.iduser);
                     play.mvc.Controller.ctx().session().put(Const.SESSION_NOM, UtilisateurDaoImpl.nom);
-                    play.mvc.Controller.ctx().session().put(Const.SESSION_PRENOM, UtilisateurDaoImpl.prenom););
+                    play.mvc.Controller.ctx().session().put(Const.SESSION_PRENOM, UtilisateurDaoImpl.prenom);
 
                 user.put("result", "ok");
                 user.put("code", "3000");
