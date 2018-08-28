@@ -339,8 +339,22 @@
                             <td><input class="form-control"  value=""  name="search" id="tfadd_nameC" placeholder="Nom" /></td>
                         </tr>
                         <tr>
-                            <td style="padding-top: 4%;" class="styleTD">URL Photo :</td>
-                            <td><input type="text" class="form-control" value="" name="search" id="tfadd_photoC" placeholder="URL Photo" /></td>
+
+                            <td style="padding-top: 4%;" class="styleTD"> Image :</td>
+                            <td>
+                                <div class="row">
+                                    <input type="text" class="form-control" id="fileLocationCategorie" style="display:none;">
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <progress value="0" max="100" id="uploaderCategorie"></progress>
+                                            <input type="file" id="fileButtonCategorie" class="dropify" data-height="200" />
+                                        </div>
+                                    </div>
+                                    <input id="urlTitreCategorie" class="form-control form-control-sm" type="text" placeholder="Titre">
+                                </div>
+
                         </tr>
 
                         </tbody>

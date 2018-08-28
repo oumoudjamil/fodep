@@ -21,6 +21,7 @@ GET   /delRecette                       controllers.RecetteController.delRecette
 GET   /getRecette                       controllers.RecetteController.getRecettebyId(id: Int)
 GET   /updateRecette                    controllers.RecetteController.updateRecette(id: Int,name: String,photo: String, duration: Int,categoryName: Int,description: String,ingredien: String,instruction: String)
 
+POST  /addCategorie                     controllers.RecetteController.addCategorie()
 
 
 # Map static resources from the /public folder to the /assets URL path

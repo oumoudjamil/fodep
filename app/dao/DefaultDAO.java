@@ -8,5 +8,4 @@ import java.util.ArrayList;
  */
 public interface DefaultDAO<T> {
     ArrayList<T> getAll() throws SQLException;
-
 }

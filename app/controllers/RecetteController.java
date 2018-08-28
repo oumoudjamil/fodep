@@ -214,4 +214,48 @@ public class RecetteController extends Controller {
             return ok(objectNode);
         }
     }
+
+
+    public Result addCategorie() throws SQLException {
+
+        ObjectNode objectNode = Json.newObject();
+        JsonNode json = request().body().asJson();
+        Log.logActionInputJson(request().body().toString());
+
+
+        String name = json.findPath("name").textValue();
+        String photo = json.findPath("photo").textValue();
+
+        try {
+            ServiceCategoryImpl service = new ServiceCategoryImpl();
+            boolean newCaterorie = service.addCategorie(name,photo);
+
+            Logger.info("REPONCE CREATION " + newCaterorie);
+
+            if (!newCaterorie) {
+                String message = "Parametres incorrect,La creation a echoue !";
+                objectNode.put("result","nok");
+                objectNode.put("code","3000");
+                objectNode.put("message",message);
+
+                return ok(objectNode);
+
+            }
+            String message = "Caterorie cree avec success!";
+            objectNode.put("result","ok");
+            objectNode.put("code","200");
+            objectNode.put("message",message);
+            return ok(objectNode);
+
+        } catch (NullPointerException e) {
+            Logger.error(e.getMessage());
+            String message = "Erreur interne Parametres incorrecte.";
+            objectNode.put("result","ok");
+            objectNode.put("code","3001");
+            objectNode.put("message",message);
+            return ok(objectNode);
+        } finally {
+
+        }
+    }
 }

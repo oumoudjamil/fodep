@@ -3,6 +3,7 @@ $(document)
     function(e) {
 
         var url0;
+        var url1;
         var ok = '1';
         var nok = '0';
         var idToUpdate;
@@ -60,7 +61,7 @@ $(document)
                             var sp = id.split('-');
                             console.log(sp);
 
-                            var reponse = window.confirm("Souhaitez-vous vraiment supprimer cet utilisateur ?");
+                            var reponse = window.confirm("Souhaitez-vous vraiment supprimer cette recette ?");
                                 if(reponse)
                                 {
                                     deleterecette(sp[1]);
@@ -200,6 +201,31 @@ $(document)
                 }
             );
         });
+
+            fileButtonCategorie.addEventListener('change', function(e) {
+                var file=e.target.files[0];
+                var storageRef=firebase.storage().ref("'/fileLocation/'"+file.name);
+                console.log("fileLocation ", fileLocation);
+                var task=storageRef.put(file);
+                task.on('state_changed',
+                    function progress(snapshot){
+                        var percentage=( snapshot.bytesTransferred / snapshot.totalBytes )*100;
+                        uploader.value=percentage;
+                        console.log(snapshot.toString());
+                        if (percentage==100){
+                            alert("file uploaded Successfully");
+                        }
+                    },
+                    function error(err){
+                        console.log("ERROR");
+                    },
+                    function complete(){
+                        var downloadURL = task.snapshot.downloadURL;
+                        console.log("url1 ",downloadURL);
+                        url1 = downloadURL;
+                    }
+                );
+            });
 
        function verifyBeforeDoCreateRecette(){
 
@@ -408,5 +434,67 @@ $(document)
         verifyBeforeUpdate($('#id_selected_recette').val());
     });
 
+    function verifyBeforeDoCreateCategorie(){
+
+                var name = $('#tfadd_nameC').val();
+                var photo = url1;
+
+                if(name == ''){
+                    alert('name obligatoire !!!');
+                    $('#bt_ajouter_categorie').attr("disabled", false);
+                }
+
+                else if(photo == ''){
+                    alert('photo obligatoire !!!');
+                    $('#bt_ajouter_categorie').attr("disabled", false);
+                }
+
+                else {
+                    var data ={
+                        'name' : name,
+                        'photo' : photo,
+                    };
+                    doCreateCategorie(data);
+
+                }
+    }
+
+    function doCreateCategorie(data){
+        $(".imloadAdd").fadeIn("1000");
+        appRoutes.controllers.RecetteController.addCategorie().ajax({
+           data : JSON.stringify(data),
+           contentType : 'application/json',
+           success : function (json){
+           console.log(json);
+
+                if (json.result == "ok") {
+
+                    $('#bt_annuler_add_categorie').click();
+                    alert(json.message);
+                    $("#addCatogorie").modal("hide");
+                    getCategorie();
+
+                }
+                else{
+                    alert(json.message);
+                }
+                $(".imloadAdd").fadeOut("1000");
+                $('#bt_ajouter_categorie').attr("disabled", false);
+            },
+            error: function (xmlHttpReques,chaineRetourne,objetExeption) {
+                if(objetExeption == "Unauthorized"){
+                    $(location).attr('href',"/");
+                }
+                $(".imload").fadeOut("1000");
+                $('#bt_ajouter_categorie').attr("disabled", false);
+            }
+        });
+       }
+
+     $('#bt_ajouter_categorie').bind("click",verifyBeforeDoCreateCategorie);
+
+     $('#bt_annuler_add_categorie').click(function (e) {
+               $("#addCatogorie").modal("hide");
+     });
 
     });
