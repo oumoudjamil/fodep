@@ -29,6 +29,10 @@ public class HomeController extends Controller{
                 .render());
     }
 
+    public Result index() {
+        return ok(index.render());
+    }
+
     public Result jsRoutes() {
         response().setContentType("text/javascript");
         return ok(Routes.javascriptRouter("appRoutes",
@@ -43,6 +47,7 @@ public class HomeController extends Controller{
                 routes.javascript.HomeController.recette(),
                 routes.javascript.HomeController.menu(),
                 routes.javascript.HomeController.single(),
+                routes.javascript.HomeController.index(),
                 routes.javascript.RecetteController.delRecette(),
                 routes.javascript.UtilisateurController.connectUser()
                 ));
