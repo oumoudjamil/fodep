@@ -244,4 +244,38 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
 
         return true;
     }
+
+    @Override
+    public boolean updateEtatRecette(int id, String etat)
+            throws SQLException {
+        Connection connection = DB.getConnection();
+        Statement stm = null;
+        String req;
+        stm = connection.createStatement();
+        req = "UPDATE recette SET statut = '" + etat +"' WHERE id ='" + id + "'";
+        Logger.debug(" Req change etat recette " + req);
+
+        try {
+            int retour = stm.executeUpdate(req);
+            Logger.debug("i " + retour);
+            if (retour == 0) {
+                Logger.info("RETOUR UPDATE ETAT RECETTE ==> " + retour);
+                return false;
+            }
+            Logger.info("RETOUR STATEMENT ==> " + retour);
+
+        } catch (SQLException e) {
+            Logger.error("updateEtatRecette SQLException " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+
+            } catch (SQLException e) {
+                Logger.error("SQLExeption " + e.getMessage());
+            }
+        }
+        return true;
+    }
 }

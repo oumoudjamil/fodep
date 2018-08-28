@@ -39,6 +39,7 @@ public class HomeController extends Controller{
                 routes.javascript.RecetteController.getRecettebyId(),
                 routes.javascript.RecetteController.updateRecette(),
                 routes.javascript.RecetteController.addCategorie(),
+                routes.javascript.RecetteController.updateEtatRecette(),
                 routes.javascript.HomeController.recette(),
                 routes.javascript.HomeController.menu(),
                 routes.javascript.HomeController.single(),

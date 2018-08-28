@@ -19,4 +19,6 @@ public interface RecetteDAO {
     boolean updateRecette(int id, String name, String photo, int duration,
                                  int category,
                                  String description, String ingredien, String instruction) throws SQLException;
+    boolean updateEtatRecette(int id, String etat)
+            throws SQLException;
 }

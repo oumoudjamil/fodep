@@ -258,4 +258,35 @@ public class RecetteController extends Controller {
 
         }
     }
+
+    public Result updateEtatRecette(int id, String etat) throws SQLException {
+        Log.logActionHeader("update");
+        ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
+
+        try {
+
+            boolean user = serviceRecette
+                    .updateEtatRecette(id,etat);
+
+            Logger.info("REPONCE UPDATE ETAT RECETTE" + user);
+
+            ObjectNode objectNode = Json.newObject();
+            objectNode.put("result", "ok");
+            objectNode.put("code", "200");
+            objectNode.put("message", "ETAT Recette modifie avec success!");
+
+            Log.logActionOutput(objectNode.toString());
+            return ok(objectNode);
+
+        } catch (NullPointerException e) {
+            Logger.error(e.getMessage());
+            ObjectNode objectNode = Json.newObject();
+            objectNode.put("result", "ok");
+            objectNode.put("code", "3001");
+            objectNode.put("message", "Erreur interne Parametres incorrecte.");
+            Log.logActionOutput(objectNode.toString());
+            return ok(objectNode);
+        }
+    }
+
 }

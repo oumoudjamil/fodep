@@ -53,9 +53,9 @@ $(document)
                             html += '<td><button type="button" class="btn btn-black btn-xs line_supp" id="line_supp-'+recette[i].id+'"><i class="fa fa-trash"></i> </button></td>';
 
                             if (recette[i].statut == "1") {
-                               html += '<td><button  class="btn btn-danger btn-xs bloque btn-icon icon-right"  data-toggle="modal" data-target="#myModal" id="btbloque-' + recette[i].id +'"  > Retirer<i class="fa fa-toggle-on"></i></button></td>'
+                               html += '<td><button  class="btn btn-danger btn-xs retirer btn-icon icon-right" id="btbloque-' + recette[i].id +'"  > Retirer<i class="fa fa-toggle-on"></i></button></td>'
                             } else {
-                                html += '<td><button  class="btn btn-success btn-xs debloque btn-icon icon-right" data-toggle="modal" data-target="#myModalDebloquer" id="btbloque-' + recette[i].id +'"  > Valider <i class="fa fa-toggle-off"></i></button></td>'
+                                html += '<td><button  class="btn btn-success btn-xs valider btn-icon icon-right" id="btbloque-' + recette[i].id +'"  > Valider <i class="fa fa-toggle-off"></i></button></td>'
                             }
 
                             html += '</tr>';
@@ -88,7 +88,18 @@ $(document)
                             $('#id_selected_recette').val(sp1[1]);
                         });
 
+                        $(".retirer").click(function(){
+                               var id = $(this).attr('id');
+                               var sp = id.split('-');
+                               retirerRecette(sp[1]);
+                         });
 
+
+                         $(".valider").click(function(){
+                              var idd = $(this).attr('id');
+                              var spp = idd.split('-');
+                               validerRecette(spp[1]);
+                          });
 
                     } else if (data.result == "nok") {
                         alert(data.message);
@@ -102,6 +113,29 @@ $(document)
                     }
                     $(".imload").fadeOut("1000");
                 }
+            });
+        }
+        function validerRecette(id){
+            changeRecetteStatut(id,"1");
+        }
+
+        function retirerRecette(id){
+            changeRecetteStatut(id,"0");
+        }
+
+        function changeRecetteStatut(id, etat) {
+            $(".imload").fadeIn("1000");
+
+            appRoutes.controllers.RecetteController.updateEtatRecette(id,etat).ajax({
+                         success : function (json) {
+               if (json.result == "ok") {
+               alert(json.message);
+               getRecette();
+                } else {
+                    alert(json.message);
+                }
+            $(".imload").fadeOut("1000");
+            }
             });
         }
 
