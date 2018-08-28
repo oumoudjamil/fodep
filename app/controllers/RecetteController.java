@@ -260,7 +260,8 @@ public class RecetteController extends Controller {
     }
 
     public Result updateEtatRecette(int id, String etat) throws SQLException {
-        Log.logActionHeader("update");
+
+        Log.logActionHeader("update etat recette");
         ServiceRecetteImpl serviceRecette = new ServiceRecetteImpl();
 
         try {
