@@ -55,7 +55,7 @@ $(document)
                             if (recette[i].statut == "1") {
                                html += '<td><button  class="btn btn-danger btn-xs bloque btn-icon icon-right"  data-toggle="modal" data-target="#myModal" id="btbloque-' + recette[i].id +'"  > Retirer<i class="fa fa-toggle-on"></i></button></td>'
                             } else {
-                                html += '<td><button  class="btn btn-danger btn-xs debloque btn-icon icon-right" data-toggle="modal" data-target="#myModalDebloquer" id="btbloque-' + recette[i].id +'"  > Valider <i class="fa fa-toggle-off"></i></button></td>'
+                                html += '<td><button  class="btn btn-success btn-xs debloque btn-icon icon-right" data-toggle="modal" data-target="#myModalDebloquer" id="btbloque-' + recette[i].id +'"  > Valider <i class="fa fa-toggle-off"></i></button></td>'
                             }
 
                             html += '</tr>';

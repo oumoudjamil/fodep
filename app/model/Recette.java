@@ -18,6 +18,7 @@ public class Recette {
     String instruction;
     String video;
     String idRecette;
+    int statut;
 
     public Recette() {
     }
@@ -117,5 +118,13 @@ public class Recette {
 
     public void setIdRecette(String idRecette) {
         this.idRecette = idRecette;
+    }
+
+    public int getStatut() {
+        return statut;
+    }
+
+    public void setStatut(int statut) {
+        this.statut = statut;
     }
 }

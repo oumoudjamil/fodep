@@ -23,7 +23,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
         Statement statement;
         ArrayList<Recette> recettes = new ArrayList<>();
         StringBuilder request = new StringBuilder(
-                "SELECT * from recette, category where recette.category=category.idC ORDER BY id DESC" );
+                "SELECT * from recette, category where recette.category=category.idC AND statut=1 ORDER BY id DESC" );
 
         try {
             statement = c.createStatement();
@@ -38,7 +38,7 @@ public class RecetteDAOImpl implements DefaultDAO, RecetteDAO {
                 r.setIngredien(resultSet.getString("ingredien"));
                 r.setInstruction(resultSet.getString("instruction"));
                 r.setVideo(resultSet.getString("video"));
-                //r.setIdRecette(resultSet.getString("idRecette"));
+                r.setStatut(resultSet.getInt("statut"));
                 r.setCategoryID(resultSet.getInt("idC"));
                 r.setCategoryName(resultSet.getString("nameC"));
                 r.setCategoryPhoto(resultSet.getString("photoC"));
