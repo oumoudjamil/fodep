@@ -26,6 +26,10 @@ $(document)
                 fileButton0=document.getElementById('fileButton0'),
                 password=document.getElementById('password-label');
 
+            var uploader1=document.getElementById('uploaderCategorie'),
+                fileButtonCategorie=document.getElementById('fileButtonCategorie'),
+                password=document.getElementById('password-label');
+
       initPageElements();
 
         function getRecette() {
@@ -40,7 +44,7 @@ $(document)
                             html += '<tr">';
                             html += '<td>' + recette[i].name +  '</td>';
                             html += '<td> <img src="' + recette[i].photo +   '" height="152" width="270"/></td>';
-                            html += '<td>' + recette[i].duration+   '</td>';
+                            html += '<td>' + recette[i].duration+   'min</td>';
                             html += '<td>' + recette[i].categoryName+   '</td>';
                             html += '<td>' + recette[i].description+   '</td>';
                             html += '<td>' + recette[i].ingredien+   '</td>';
@@ -106,6 +110,7 @@ $(document)
                             html += '<tr">';
                             html += '<td>' + category[i].categoryName +  '</td>';
                             html += '<td> <img src="' + category[i].categoryPhoto + '" height="152" width="270"/></td>';
+                            html += '<td><button type="button" class="btn btn-black btn-xs line_suppc" id="line_suppc-'+category[i].id+'"><i class="fa fa-trash"></i> </button></td>';
                             html += '</tr>';
                             $('#tbodyCategorie').append(html);
                         }
@@ -185,7 +190,7 @@ $(document)
             task.on('state_changed',
                 function progress(snapshot){
                     var percentage=( snapshot.bytesTransferred / snapshot.totalBytes )*100;
-                    uploader.value=percentage;
+                    uploader1.value=percentage;
                     console.log(snapshot.toString());
                     if (percentage==100){
                         alert("file uploaded Successfully");
