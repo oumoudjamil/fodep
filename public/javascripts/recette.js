@@ -26,7 +26,7 @@ $(document)
                 fileButton0=document.getElementById('fileButton0'),
                 password=document.getElementById('password-label');
 
-            var uploader1=document.getElementById('uploaderCategorie'),
+            var uploaderCategorie=document.getElementById('uploaderCategorie'),
                 fileButtonCategorie=document.getElementById('fileButtonCategorie'),
                 password=document.getElementById('password-label');
 
@@ -51,6 +51,12 @@ $(document)
                             html += '<td>' + recette[i].instruction+   '</td>';
                             html += '<td><button type="button" class="btn btn-danger btn-icon btn-xs line_button" data-toggle="modal" data-target="#updateRecette" id="line_action-'+recette[i].id+'"> Action <i class="fa fa-fire"></i> </button></td>';
                             html += '<td><button type="button" class="btn btn-black btn-xs line_supp" id="line_supp-'+recette[i].id+'"><i class="fa fa-trash"></i> </button></td>';
+
+                            if (recette[i].statut == "1") {
+                               html += '<td><button  class="btn btn-danger btn-xs bloque btn-icon icon-right"  data-toggle="modal" data-target="#myModal" id="btbloque-' + recette[i].id +'"  > Retirer<i class="fa fa-toggle-on"></i></button></td>'
+                            } else {
+                                html += '<td><button  class="btn btn-danger btn-xs debloque btn-icon icon-right" data-toggle="modal" data-target="#myModalDebloquer" id="btbloque-' + recette[i].id +'"  > Valider <i class="fa fa-toggle-off"></i></button></td>'
+                            }
 
                             html += '</tr>';
                             $('#tbodyRecette').append(html);
@@ -190,7 +196,7 @@ $(document)
             task.on('state_changed',
                 function progress(snapshot){
                     var percentage=( snapshot.bytesTransferred / snapshot.totalBytes )*100;
-                    uploader1.value=percentage;
+                    uploader.value=percentage;
                     console.log(snapshot.toString());
                     if (percentage==100){
                         alert("file uploaded Successfully");
@@ -215,7 +221,7 @@ $(document)
                 task.on('state_changed',
                     function progress(snapshot){
                         var percentage=( snapshot.bytesTransferred / snapshot.totalBytes )*100;
-                        uploader.value=percentage;
+                        uploaderCategorie.value=percentage;
                         console.log(snapshot.toString());
                         if (percentage==100){
                             alert("file uploaded Successfully");
