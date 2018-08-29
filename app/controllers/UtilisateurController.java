@@ -25,7 +25,7 @@ import static play.mvc.Results.ok;
 public class UtilisateurController {
 
     public Result connectUser() {
-        Log.logActionHeader("nouvelle connexion d'un utilisateur");
+        Log.logActionHeader("Nouvelle connexion d'un utilisateur");
         JsonNode json = request().body().asJson();
         ObjectNode user = Json.newObject();
         try {

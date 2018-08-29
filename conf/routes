@@ -11,7 +11,7 @@ GET   /swagger.json                     controllers.ApiHelpController.getResourc
 GET   /docs/                            controllers.Assets.at(path="/public/swagger-ui",file="index.html")
 GET   /docs/*file                       controllers.Assets.at(path="/public/swagger-ui",file)
 
-GET   /                            controllers.HomeController.index
+GET   /                                 controllers.HomeController.index
 
 POST  /connectUser                      controllers.UtilisateurController.connectUser()
 

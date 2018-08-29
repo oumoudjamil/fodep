@@ -1,6 +1,5 @@
 package controllers;
 
-import play.Logger;
 import play.Routes;
 import play.mvc.Controller;
 import play.mvc.Result;
