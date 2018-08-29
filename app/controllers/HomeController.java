@@ -18,18 +18,6 @@ public class HomeController extends Controller{
                 .render());
     }
 
-    public Result menu() {
-
-        return ok(menu
-                .render());
-    }
-
-    public Result single() {
-
-        return ok(single
-                .render());
-    }
-
     public Result index() {
         String session = session(Const.SESSION_CONNECTED);
         if (session != null) {
@@ -50,8 +38,6 @@ public class HomeController extends Controller{
                 routes.javascript.RecetteController.addCategorie(),
                 routes.javascript.RecetteController.updateEtatRecette(),
                 routes.javascript.HomeController.recette(),
-                routes.javascript.HomeController.menu(),
-                routes.javascript.HomeController.single(),
                 routes.javascript.HomeController.index(),
                 routes.javascript.RecetteController.delRecette(),
                 routes.javascript.UtilisateurController.connectUser()
