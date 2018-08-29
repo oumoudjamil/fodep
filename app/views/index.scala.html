@@ -20,40 +20,38 @@
     <script src="@routes.Assets.versioned("javascripts/assets/modernizr-2.8.3-respond-1.4.2.min.js")" type="text/javascript"></script>
 </head>
 
-<body id="minovate" class="appWrapper">
+<body id="hlogin">
+    <div id="wrap">
+         <div class="container">
+            <div class="col-md-4 col-md-offset-4">
+             <div>
+             <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                    <div class="panel-body login">
+                        <div class="logcont">
+                            <div class="bot">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa-2x"></i></span>
+                                <input type="text" class="form-control log" id="tf_userlogin" name="email" placeholder="Login">
+                              </div>
+                            </div>
+                            <div class="bot">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-unlock-alt fa-2x"></i></span>
+                                <input type="password" class="form-control log" id="tf_userpwd" name="password" placeholder="Password">
+                              </div>
+                            </div>
+                        </div>
+                        <div class="padtop">
 
-    <div id="wrap" class="animsition">
-
-        <div class="page page-core page-login">
-
-            <div class="text-center">
-                <h3 class="text-light text-white">
-                    <span><strong>Jus Naturel BO</strong></span>
-                </h3>
-            </div>
-
-            <div class="container w-420 p-15 bg-white mt-40 text-center">
-
-              <h2 class="text-light text-danger">Connexion</h2>
-
-                <div name="form" class="form-validation mt-20" novalidate="">
-
-                    <div class="form-group">
-                        <input id="tf_userlogin" type="email" class="form-control underline-input" placeholder="Login">
+                        </div>
+                        <div class="panel-footer">
+                            <button type="submit" class="btn btn-danger btn-icon" id="bt_submit_connexion" style="width:100%">Connexion</button>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input id="tf_userpwd" type="password" placeholder="Mot de passe" class="form-control underline-input">
-                    </div>
-
-                    <div class="form-group text-left mt-20">
-                        <button type="submit" class="btn btn-danger b-0 br-2 mr-5" id="bt_submit_connexion">Connexion</button>
-                    </div>
-
-                </div>
-
-                <hr class="b-3x">
-            </div>
+                 </div>
+             </div>
+          </div>
         </div>
     </div>
 
