@@ -1,6 +1,3 @@
-/**
- * Created by oumou on 26/10/2015.
- */
 $(document)
     .ready(
     function(e) {
