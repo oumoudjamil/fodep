@@ -4,6 +4,7 @@ import play.Logger;
 import play.Routes;
 import play.mvc.Controller;
 import play.mvc.Result;
+import tools.Const;
 import views.html.*;
 
 /**
@@ -30,6 +31,10 @@ public class HomeController extends Controller{
     }
 
     public Result index() {
+        String session = session(Const.SESSION_CONNECTED);
+        if (session != null) {
+            return redirect(controllers.routes.HomeController.recette());
+        }
         return ok(index.render());
     }
 
