@@ -4,8 +4,6 @@
 
 #view
 GET   /recette                          controllers.HomeController.recette()
-GET   /menu                             controllers.HomeController.menu()
-GET   /single.html                      controllers.HomeController.single()
 
 
 # Swagger API
