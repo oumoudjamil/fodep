@@ -10,77 +10,50 @@
     <title>Connexion</title>
     <link rel="icon" type="image/ico" href="assets/images/favicon.ico" />
     <meta name="description" content="">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/assets/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/Aristo/Aristo.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/assets/animate.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/assets/font-awesome/css/font-awesome.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/assets/animsition/css/animsition.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/assets/main.css")">
-    <script src="@routes.Assets.versioned("javascripts/assets/modernizr-2.8.3-respond-1.4.2.min.js")" type="text/javascript"></script>
 </head>
 
-<body id="hlogin">
-    <div id="wrap">
-         <div class="container center">
-            <div class="col-md-4 col-md-offset-4">
-             <div>
-             <div class="panel panel-danger">
-                <div class="panel-heading"></div>
-                    <div class="panel-body login">
-                        <div class="logcont">
-                            <div class="bot">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa-2x"></i></span>
-                                <input type="text" class="form-control log" id="tf_userlogin" name="email" placeholder="Login">
-                              </div>
-                            </div>
-                            <div class="bot">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-unlock-alt fa-2x"></i></span>
-                                <input type="password" class="form-control log" id="tf_userpwd" name="password" placeholder="Password">
-                              </div>
-                            </div>
-                        </div>
-                        <div class="padtop">
+<body id="LoginForm">
+<div class="container">
+<h1 class="form-heading">login Form</h1>
+<div class="login-form">
+<div class="main-div">
+    <div class="panel">
+   <h2>Admin Login</h2>
+   <p>Please enter your email and password</p>
+   </div>
+    <form id="Login">
 
-                        </div>
-                        <div class="panel-footer">
-                            <button type="submit" class="btn btn-danger btn-icon" id="bt_submit_connexion" style="width:100%">Connexion</button>
-                        </div>
-                    </div>
-                 </div>
-             </div>
-          </div>
+        <div class="form-group">
+
+
+            <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+
         </div>
+
+        <div class="form-group">
+
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+
+        </div>
+        <div class="forgot">
+        <a href="reset.html">Forgot password?</a>
+</div>
+        <button type="submit" class="btn btn-primary">Login</button>
+
+    </form>
     </div>
+<p class="botto-text"> Designed by Sunil Rajput</p>
+</div></div></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery/jquery-1.11.2.min.js"><\/script>')</script>
-    <script src="@routes.Assets.versioned("javascripts/assets/bootstrap/bootstrap.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/assets/jRespond/jRespond.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/assets/sparkline/jquery.sparkline.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/assets/slimscroll/jquery.slimscroll.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/assets/animsition/js/jquery.animsition.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/assets/screenfull/screenfull.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/jquery-ui.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/assets/main.js")" type="text/javascript"></script>
-    <script src="@controllers.routes.HomeController.jsRoutes()" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/sessionManager.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/connexion.js")" type="text/javascript"></script>
-    <script>
-        $(window).load(function(){
-        });
-    </script>
 
-    <script>
-        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='https://www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-    </script>
-
-    </body>
+</body>
 </html>
