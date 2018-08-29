@@ -22,7 +22,7 @@ $(document)
                     success : function (data) {
                         if(data.result == "ok"){
                                $(location).attr('href',
-                               "/accueil");
+                               "/recette");
                         }
                         else {
                             $('#erreur').html('');
@@ -57,7 +57,7 @@ $(document)
                     success : function (data) {
                         if(data.result == "ok"){
                                $(location).attr('href',
-                               "/accueil");
+                               "/recette");
                         }
                         else {
                             $('#erreur').html('');
@@ -93,7 +93,7 @@ $(document)
                     success : function (data) {
                         if(data.result == "ok"){
                                $(location).attr('href',
-                               "/accueil");
+                               "/recette");
                         }
                         else {
                             $('#erreur').html('');
