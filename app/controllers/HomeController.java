@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Logger;
 import play.Routes;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -12,7 +13,12 @@ import views.html.*;
 public class HomeController extends Controller{
 
     public Result recette() {
-
+        
+        String session = session(Const.SESSION_CONNECTED);
+        if (session == null) {
+            Logger.info("unauthorized!");
+            return ok(index.render());
+        }
         return ok(recettes
                 .render());
     }
