@@ -37,9 +37,9 @@ public class UtilisateurController {
             if (!Utils.checkData(data)) {
                 return ok(Utils.getObjectNode("nok", "3001", "Parametres incorrects."));
             }
+            UtilisateurDAO dao = DAOFactory.getUtilisateurDAO();
             Logger.info("User  Okkk");
 
-            UtilisateurDAO dao = DAOFactory.getUtilisateurDAO();
             ArrayList<Utilisateur> getUser = dao.connectUser(login, mdp);
             if(!getUser.isEmpty()) {
 
