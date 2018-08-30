@@ -40,15 +40,7 @@ public class UtilisateurController {
             UtilisateurDAO dao = DAOFactory.getUtilisateurDAO();
             ArrayList<Utilisateur> getUser = dao.connectUser(login, mdp);
             if(!getUser.isEmpty()) {
-
-                    play.mvc.Controller.ctx().session().clear();
-                    play.mvc.Controller.ctx().session().put(Const.SESSION_CONNECTED, "true");
-                    play.mvc.Controller.ctx().session().put(Const.SESSION_LOGIN, login);
-                    play.mvc.Controller.ctx().session().put(Const.SESSION_ID_USER, UtilisateurDaoImpl.iduser);
-                    play.mvc.Controller.ctx().session().put(Const.SESSION_NOM, UtilisateurDaoImpl.nom);
-                    play.mvc.Controller.ctx().session().put(Const.SESSION_PRENOM, UtilisateurDaoImpl.prenom);
-
-                user.put("result", "ok");
+            user.put("result", "ok");
                 user.put("code", "3000");
                 user.put("message", "");
                 user.put("users", Json.toJson(getUser));
