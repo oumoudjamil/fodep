@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.UtilisateurDAO;
 import model.Utilisateur;
+import play.Logger;
 import play.db.DB;
 
 import java.sql.Connection;
@@ -27,10 +28,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
     public ArrayList<Utilisateur> connectUser(String login, String pwd) throws SQLException {
         Connection c = DB.getConnection();
         Statement statement;
-        StringBuilder request = new StringBuilder("SELECT * " +
-                "FROM users " +
-                "WHERE login='").append(login)
-                .append("' and motdepasse='").append(pwd);
+        StringBuilder request = new StringBuilder("SELECT * FROM users WHERE login='"+login+"' and motdepasse='"+pwd+"'");
 
         statement = c.createStatement();
 
@@ -59,9 +57,13 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
             users.add(u);
             statement.close();
             resultSet.close();
+
+            Logger.info("user ",users.toString());
+
             return users;
 
         } catch (SQLException e) {
+            Logger.error("error", e.getMessage());
             statement.close();
             resultSet.close();
             return users;
