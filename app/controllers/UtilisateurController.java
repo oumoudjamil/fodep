@@ -2,13 +2,13 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import dao.DAOFactory;
 import dao.UtilisateurDAO;
 import dao.impl.UtilisateurDaoImpl;
 import model.Utilisateur;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Result;
+import services.impl.ServiceUtilisateurImpl;
 import tools.Const;
 import tools.Log;
 import tools.Utils;
@@ -37,11 +37,13 @@ public class UtilisateurController {
             if (!Utils.checkData(data)) {
                 return ok(Utils.getObjectNode("nok", "3001", "Parametres incorrects."));
             }
-            UtilisateurDAO dao = DAOFactory.getUtilisateurDAO();
+
+            ServiceUtilisateurImpl serviceUtilisateur = new ServiceUtilisateurImpl();
+            ArrayList<Utilisateur> users = serviceUtilisateur.connectUser(login,mdp);
+
             Logger.info("User  Okkk");
 
-            ArrayList<Utilisateur> getUser = dao.connectUser(login, mdp);
-            if(!getUser.isEmpty()) {
+            if(!users.isEmpty()) {
 
                     play.mvc.Controller.ctx().session().clear();
                     play.mvc.Controller.ctx().session().put(Const.SESSION_CONNECTED, "true");
@@ -53,14 +55,14 @@ public class UtilisateurController {
                 user.put("result", "ok");
                 user.put("code", "3000");
                 user.put("message", "");
-                user.put("users", Json.toJson(getUser));
-                Logger.info("User connecte " + Json.toJson(getUser));
+                user.put("users", Json.toJson(users));
+                Logger.info("User connecte " + Json.toJson(users));
             }else {
                 user.put("result", "nok");
                 user.put("code", "3002");
                 user.put("message", "Aucun user");
-                user.put("users", Json.toJson(getUser));
-                Logger.info("User connecte " + Json.toJson(getUser));
+                user.put("users", Json.toJson(users));
+                Logger.info("User not connected " + Json.toJson(users));
             }
             return ok(user);
         } catch (SQLException e) {
