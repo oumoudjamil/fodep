@@ -37,9 +37,10 @@ public class UtilisateurController {
             if (!Utils.checkData(data)) {
                 return ok(Utils.getObjectNode("nok", "3001", "Parametres incorrects."));
             }
+            Logger.info("User  Okkk");
+
             UtilisateurDAO dao = DAOFactory.getUtilisateurDAO();
             ArrayList<Utilisateur> getUser = dao.connectUser(login, mdp);
-            Logger.info("User  " + Json.toJson(getUser));
             if(!getUser.isEmpty()) {
 
                     play.mvc.Controller.ctx().session().clear();
