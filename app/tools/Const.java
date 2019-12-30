@@ -22,6 +22,6 @@ public class Const {
 
     public static String PROFIL_UTILISATEUR = "1";
 
-    public static final String SESSION_PROFIL = "idprofil";
+    public static final String SESSION_PROFIL = "idrole";
 
 }

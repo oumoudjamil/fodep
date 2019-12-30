@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Attribut</title>
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.max.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/sb-admin.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/font-awesome/css/font-awesome.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/Aristo/Aristo.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/jquery.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/TweenMax.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/resizeable.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.max.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap-select.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/plugins/jquery.numeric.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/plugins/jquery.twbsPagination.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/plugins/api.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/attribut.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@routes.HomeController.jsRoutes"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $('.selectpicker').selectpicker();
+    });
+    </script>
+
+</head>
+<body id="hcptclient">
+
+
+<div id="wrapper">
+    <!-- Navigation -->
+    @enteteMenu()
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="">
+                <div class="col-lg-12">
+                    <div class="page-header" id="hcptclient">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>
+                                    <a class="trait" href="/creditchannel">ATTRIBUT FODEP</a>
+                                    <small></small>
+
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-default btn-xs btn-detail" data-toggle="modal" data-target="#addAttribut">Ajouter Attribut</button>
+                        </div>
+                    </div>
+
+                    <ol class="breadcrumb">
+                        <div class="row" id="">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Code Attribut</th>
+                                        <th>Libelle Attribut</th>
+                                        <th>Source Valeur</th>
+                                        <th>Source Donnees</th>
+                                        <th colspan="2">Actions</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbodyAttribut">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ol>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addAttribut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog addDetaillant details_d">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalAddDetaillantHead"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ajouter Attribut
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <ol id="olShowErrorAdd"></ol>
+                <ol id="olShowSuccessAdd"></ol>
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelCode"> Code Attribut<span class="requiered">*</span></td>
+                        <td><input type="text" id="codeAttribut" class="form-control" aria-describedby="sizing-addon3"></td>
+                    </tr>
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelLibelle"> Libelle Attribut<span class="requiered">*</span></td>
+                        <td><input type="text" id="libelleAttribut" class="form-control" aria-describedby="sizing-addon3"></td>
+                    </tr>
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelSource"> Source Donnees<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="sourceDonnee" id="sourceDonnee">
+                            <option value="">Choisir le source de donnees</option>
+                            <option value="balance">Balance</option>
+                            <option value="client">Client</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeur"> Source Valeur<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="0" id="sourceValeur"></select></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <span><i class="fa fa-spinner fa-2x fa-spin imloadAdd"></i></span>
+                <span></span>
+                <button type="button" class="btn btn-default" id="createAttribut">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalAddAttribut">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modifier Attribut -->
+<div class="modal fade" id="updateAttribut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog details">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#fff"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelp" style="padding-left:10px">Modifier Etat</h4>
+            </div>
+            <div id="touche_popp" class="modal-body">
+                <td class="container" style="width:533px;">
+                    <table id="tabAttributsp" class="table table-bordered table-hover table-striped">
+                        <tbody id="tbodyAttributUp">
+                        <tr>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelCodeUp"> Code Attribut<span class="requiered">*</span></td>
+                            <td><input type="text" id="codeAttributUp" class="form-control" aria-describedby="sizing-addon3"></td>
+                        </tr>
+                        <tr>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelLibelleUp"> Libelle Attribut<span class="requiered">*</span></td>
+                            <td><input type="text" id="libelleAttributUp" class="form-control" aria-describedby="sizing-addon3"></td>
+                        </tr>
+                        <tr>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelSourceUp"> Source Donnees<span class="requiered">*</span></td>
+                            <td><select class="form-control" value="sourceDonnee" id="sourceDonneeUp">
+                                <option value="">Choisir le source de donnees</option>
+                                <option value="balance">Balance</option>
+                                <option value="client">Client</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeurUp"> Source Valeur<span class="requiered">*</span></td>
+                            <td><select class="form-control" value="0" id="sourceValeurUp"></select></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="btn btn-danger btn-icon" id="bt_modifier_attribut">Modifier<i class="fa fa-check"></i></div>
+            <div class="btn btn-danger btn-icon" id="bt_annuler_update_attribut">Annuler<i class="fa fa-close"></i></div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

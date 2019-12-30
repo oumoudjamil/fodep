@@ -1,4 +1,4 @@
-name := """bo-jus-naturel"""
+name := """bo-fodep"""
 
 version := "1.0-SNAPSHOT"
 

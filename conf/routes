@@ -1,34 +1,101 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-#view
-GET   /recette                          controllers.HomeController.recette()
+# An example controller showing a sample home page
+GET     /                                   controllers.HomeController.login
+GET     /logout                             controllers.HomeController.logout
+POST    /connectUser                        controllers.UtilisateurController.connectUser()
 
+GET     /tableauDeBord                      controllers.HomeController.dashbord()
+GET     /generateEtat                       controllers.HomeController.generateEtat()
+GET     /pisteAudite                        controllers.HomeController.pisteAudite()
 
-# Swagger API
-GET   /swagger.json                     controllers.ApiHelpController.getResources
-GET   /docs/                            controllers.Assets.at(path="/public/swagger-ui",file="index.html")
-GET   /docs/*file                       controllers.Assets.at(path="/public/swagger-ui",file)
+#UTILISATEUR
+GET     /utilisateur                        controllers.HomeController.utilisateur()
+GET     /utilisateur/getAll                 controllers.UtilisateurController.getAll(page: Int?=1, per_page: Int?=10)
+GET     /utilisateur/del                    controllers.UtilisateurController.deleteUtilisateur(id: Int)
+GET     /utilisateur/role                   controllers.UtilisateurController.getAllRole()
+POST    /utilisateur/add                    controllers.UtilisateurController.addUtilisateur()
+GET     /utilisateur/getById                controllers.UtilisateurController.getUserById(id: Int)
+GET     /utilisateur/update                 controllers.UtilisateurController.updateUser(id: Int, prenom: String, nom: String, login: String, role: String)
+GET     /utilisateur/updateEtat             controllers.UtilisateurController.updateStatut(id: Int, statut: String)
+GET     /role                               controllers.HomeController.role()
+GET     /role/del                           controllers.UtilisateurController.deleteRole(id: Int)
+POST    /role/add                           controllers.UtilisateurController.addRole()
 
-GET   /                                 controllers.HomeController.index
+#BALANCE
+GET     /balance                             controllers.HomeController.balance()
+GET     /balance/getAll                      controllers.BalanceController.getAll(page: Int?=1, per_page: Int?=10)
 
-POST  /connectUser                      controllers.UtilisateurController.connectUser()
-GET   /logout                            controllers.HomeController.logout()
+# ETAT FODEP
+GET    /etatFodep                            controllers.HomeController.etatfodep
+GET   /etatfodep/addFile                     controllers.EtatFodepController.addEtatWhithFile(codeEtat: String, libelleEtat: String)
+POST   /etatfodep/add                        controllers.EtatFodepController.addEtat()
+GET    /etatfodep/getAllE                     controllers.EtatFodepController.getAll()
+GET    /etatfodep/getAll                     controllers.EtatFodepController.getAllEtat(page: Int?=1, per_page: Int?=10)
+GET    /etatfodep/del                        controllers.EtatFodepController.deleteEtat(codeEtat: String)
+GET    /etatfodep/getById                    controllers.EtatFodepController.getEtatbyCode(codeEtat: String)
+GET    /etatfodep/update                     controllers.EtatFodepController.updateEtat(codeEtat: String, libelleEtat: String)
 
+# POSTE FODEP
+GET    /postefodep                            controllers.HomeController.postefodep
+POST   /posteFodep/add                        controllers.PosteFodepController.addPoste()
+GET    /posteFodep/addWhithFile               controllers.PosteFodepController.addPosteWhithFile(codePoste: String, libellePoste: String, codeEtat: String)
+GET    /posteFodep/getAll                     controllers.PosteFodepController.getAllPoste(page: Int?=1, per_page: Int?=10)
+GET    /posteFodep/getPosteByEtat             controllers.PosteFodepController.getAllPosteByEtat(codeEtat: String)
+GET    /posteFodep/all                        controllers.PosteFodepController.getAll()
+GET    /posteFodep/del                        controllers.PosteFodepController.deletePoste(codePoste: String)
+GET    /posteFodep/getById                    controllers.PosteFodepController.getPostebyCode(codePoste: String)
+GET    /posteFodep/update                     controllers.PosteFodepController.updatePoste(codePoste: String, libellePoste: String, codeEtat: String)
 
-GET   /json                             controllers.RecetteController.getAllRecette()
-GET   /getRecetteByCategorie            controllers.RecetteController.getRecetteByCategorie(id: Int)
-GET   /getAllCategory                   controllers.RecetteController.getAllCategory()
-POST  /addRecette                       controllers.RecetteController.addRecette()
-GET   /delRecette                       controllers.RecetteController.delRecette(id: Int)
-GET   /getRecette                       controllers.RecetteController.getRecettebyId(id: Int)
-GET   /updateRecette                    controllers.RecetteController.updateRecette(id: Int,name: String,photo: String, duration: Int,categoryName: Int,description: String,ingredien: String,instruction: String)
-GET   /updateEtatRecette                controllers.RecetteController.updateEtatRecette(id: Int,etat: String)
+# ATTRIBUT FODEP
+GET    /attribut                            controllers.HomeController.attribut
+POST   /attribut/add                        controllers.AttributController.addAttribut()
+GET    /attribut/getAll                     controllers.AttributController.getAllAttribut()
+GET    /attribut/del                        controllers.AttributController.deleteAttribut(codeAttribut: String)
+GET    /attribut/getById                    controllers.AttributController.getAttributbyCode(codeAttribut: String)
+GET    /attribut/update                     controllers.AttributController.updateAttribut(codeAttribut: String, libelleAttribut: String, sourceValeur: String, sourceDonnees: String)
+GET     /attribut/getColumns/:table         controllers.AttributController.getColumnsNames(table: String)
 
-POST  /addCategorie                     controllers.RecetteController.addCategorie()
+# DEFAULT PONDERATION
+GET    /ponderation                            controllers.HomeController.defaultPonderation
+POST   /ponderation/add                        controllers.PonderationDefaultController.addPonderation()
+GET    /ponderation/getAll                     controllers.PonderationDefaultController.getAll()
+GET    /ponderation/del                        controllers.PonderationDefaultController.deletePonderation(codePonderation: Int)
+GET    /ponderation/getById                    controllers.PonderationDefaultController.getPonderationbyCode(codePonderation: Int)
+GET    /ponderation/update                     controllers.PonderationDefaultController.updatePonderation(codePonderation: Int, libellePonderation: Int)
 
+# REGLES PONDERATION
+GET    /reglesPonderation                      controllers.HomeController.reglesFodep
+POST   /reglesPonderation/add                  controllers.ReglePonderationController.addPonderation()
+GET    /reglesPonderation/getAll               controllers.ReglePonderationController.getAll(page: Int?=1, per_page: Int?=10)
+GET    /reglesPonderation/del                  controllers.ReglePonderationController.deletePonderation(codePonderation: Int, codeAttribut: String, codePoste: String)
+GET    /reglesPonderation/getById              controllers.ReglePonderationController.getPonderationbyCode(codePonderation: Int, codeAttribut: String, codePoste: String)
+GET    /reglesPonderation/update               controllers.ReglePonderationController.updatePonderation(codePonderation: Int, codeAttribut: String, codePoste: String, condition: String)
+GET    /reglesPonderation/addFile              controllers.ReglePonderationController.addPonderationWhithFile(codePonderation: Int, codeAttribut: String, codePoste: String, condition: String)
+
+#SESSION
+GET    /session                                controllers.HomeController.sessionFodep
+POST   /session/add                            controllers.SessionController.addSession()
+GET    /session/getAll                         controllers.SessionController.getAll()
+GET    /session/getActiveSession               controllers.SessionController.getActiveSession()
+GET    /session/del                            controllers.SessionController.deleteSession(idSession: Int)
+GET    /session/update                         controllers.SessionController.updateStatus(idSession: Int, status: String)
+
+#RESULTAT
+GET    /getExpo/:codePoste                     controllers.ResultatsController.getExpoNette(codePoste: String)
+#GET    /getResult/:codePoste/:codeEtat/:colonne                     controllers.ResultatsController.getResult(codePoste: String, codeEtat: String, colonne: String)
+POST    /result/add                             controllers.ResultatsController.chargeResultat()
+
+#EXPORT
+POST         /generateReport                   controllers.ExportController.generateReport()
+
+GET     /jsr                                    controllers.HomeController.jsRoutes
 
 # Map static resources from the /public folder to the /assets URL path
-GET   /assets/js/routes                 controllers.HomeController.jsRoutes()
-GET   /assets/*file                     controllers.Assets.versioned(path="/public", file)
+GET     /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                       controllers.Assets.at(path="/public", file)
+GET     /assets/js/routes                   controllers.HomeController.jsRoutes()
+
