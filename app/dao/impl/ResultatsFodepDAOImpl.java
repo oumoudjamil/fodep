@@ -1,14 +1,9 @@
 package dao.impl;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import dao.ResultatsFodepDAO;
 import models.Resultat;
-import models.Session;
 import play.Logger;
 import play.db.DB;
-import play.libs.Json;
-import tools.Log;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -44,7 +39,7 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
     public String getResult(String codePoste, String codeEtat, String colone) throws SQLException {
 
         Connection c = DB.getConnection();
-        Statement statement;
+        Statement statement ;
         String result = "";
 
         StringBuilder request = new StringBuilder(
@@ -53,61 +48,105 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
                         "and b.codeattribut = c.codeattribut " +
                         "and b.estTotal = '0'" +
                         "and b.codeposte='" + codePoste + "'");
-
+        //statement = c.createStatement();
+        ResultSet resultSet = c.createStatement().executeQuery(request.toString());
         try {
-            statement = c.createStatement();
-            ResultSet resultSet = statement.executeQuery(request.toString());
+
+            if (resultSet == null) {
+                c.close();
+                //statement.close();
+                resultSet.close();
+
+                return result;
+            }
             while (resultSet.next()) {
+
                 String sourceDonnees = resultSet.getString("sourcedonnees");
+                String sourceDonnees2 = resultSet.getString("sourcedonnees2");
+                String codeAttribut = resultSet.getString("codeattribut");
                 String conditions = resultSet.getString("conditions");
+                StringBuilder getAttribut;
 
-                StringBuilder getAttribut = new StringBuilder("select regles " +
-                        "from dispru.regle_calcul_fodep r, dispru.attributs a " +
-                        "where r.codeattribut=a.codeattribut " +
-                        "and r.codeetat ='" + codeEtat + "' " +
-                        "and a.sourcedonnees ='" + sourceDonnees + "' " +
-                        "and colonne = '" + colone + "'");
+                if (sourceDonnees2 == null || sourceDonnees2.equals("") || sourceDonnees2.isEmpty()) {
 
-                ResultSet resultSet3 = statement.executeQuery(getAttribut.toString());
-                while (resultSet3.next()) {
-                    String regle = resultSet3.getString("regles");
-                                StringBuilder request2 = new StringBuilder("select " + regle + " result " +
-                                    "from dispru." + sourceDonnees + " where " + conditions);
+                    getAttribut = new StringBuilder("select regles " +
+                            "from dispru.regle_calcul_fodep r, dispru.attributs a " +
+                            "where r.codeattribut=a.codeattribut " +
+                           // "and r.codeetat ='" + codeEtat + "' " +
+                            "and a.sourcedonnees ='" + sourceDonnees + "' " +
+                            "and a.codeattribut ='"+codeAttribut+"' "+
+                            "and colonne = '" + colone + "'");
 
-                            ResultSet resultSet2 = statement.executeQuery(request2.toString());
+                    ResultSet resultSet3 = c.createStatement().executeQuery(getAttribut.toString());
+                    while (resultSet3.next()) {
+                        String regle = resultSet3.getString("regles");
+                        StringBuilder request2 = new StringBuilder("select " + regle + " result " +
+                                "from dispru." + sourceDonnees + " where " + conditions);
+
+
+
+                        ResultSet resultSet2 = c.createStatement().executeQuery(request2.toString());
+                        while (resultSet2.next()) {
+                            result = resultSet2.getString("result");
+                        }
+                    }
+
+                } else {
+                    getAttribut = new StringBuilder("select regles " +
+                            "from dispru.regle_calcul_fodep r, dispru.attributs a " +
+                            "where r.codeattribut=a.codeattribut " +
+                            //"and r.codeetat ='" + codeEtat + "' " +
+                            "and a.sourcedonnees ='" + sourceDonnees + "' " +
+                            "and a.sourcedonnees2 ='" + sourceDonnees2 + "' " +
+                            "and a.codeattribut ='"+codeAttribut+"' "+
+                            "and colonne = '" + colone + "'");
+
+                    ResultSet resultSet3 = c.createStatement().executeQuery(getAttribut.toString());
+                    if (resultSet3 != null) {
+                        while (resultSet3.next()) {
+                            String regle = resultSet3.getString("regles");
+                            StringBuilder request2 = new StringBuilder("select " + regle + " result " +
+                                    "from dispru." + sourceDonnees + ", dispru." + sourceDonnees2 +
+                                    " where balance.client_id = client.client_id and " + conditions);
+
+                            ResultSet resultSet2 = c.createStatement().executeQuery(request2.toString());
                             while (resultSet2.next()) {
                                 result = resultSet2.getString("result");
                             }
                         }
+                    }
+                }
 
             }
 
-
+            c.close();
+            resultSet.close();
             return result;
         } catch (Exception e) {
             Logger.info("mess " + e.getMessage());
             e.printStackTrace();
-            return result;
-        } finally {
             c.close();
+            //statement.close();
+            resultSet.close();
+            return result;
         }
     }
 
     @Override
     public boolean chargeResultat(String codeEtat, String codePoste, String libellePoste, String colonne1, Double colonne2,
-                                  Double colonne3, String session_id, int mnt6, int mnt7) throws SQLException {
+                                  Double colonne3, String session_id, int mnt6, Double mnt7, Double mnt9) throws SQLException {
 
         Connection connection = DB.getConnection();
 
         Statement stm = null;
         stm = connection.createStatement();
-        String req1 = "delete from dispru.resultat where codeetat='"+codeEtat+"' AND codedispru='"+codePoste+"' AND session_id=" + session_id + "";
+        String req1 = "delete from dispru.resultat where codeetat='" + codeEtat + "' AND codedispru='" + codePoste + "' AND session_id=" + session_id + "";
         try {
             stm.executeUpdate(req1);
 
             StringBuilder req = new StringBuilder(
-                    "INSERT INTO DISPRU.resultat(codeetat,codedispru,poste,coeffponderation,mnt4,mnt5,session_id,mnt6,mnt7,reference) " +
-                            " VALUES (?,?,?,?,?,?,?,?,?,?)"
+                    "INSERT INTO DISPRU.resultat(codeetat,codedispru,poste,coeffponderation,mnt4,mnt5,session_id,mnt6,mnt7,mnt9,reference) " +
+                            " VALUES (?,?,?,?,?,?,?,?,?,?,?)"
             );
 
             PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
@@ -118,10 +157,13 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
             preparedStatement.setDouble(5, colonne2);
             preparedStatement.setDouble(6, colonne3);
             preparedStatement.setInt(7, Integer.parseInt(session_id));
-            preparedStatement.setInt(8,mnt6);
-            preparedStatement.setInt(9,mnt7);
-            preparedStatement.setString(10,"");
+            preparedStatement.setInt(8, mnt6);
+            preparedStatement.setDouble(9, mnt7);
+            preparedStatement.setDouble(10, mnt9);
+            preparedStatement.setString(11, "");
             preparedStatement.executeUpdate();
+
+            if(codeEtat.equals("EP10"))
             Logger.debug("REQ " + req);
 
             return true;
@@ -142,7 +184,7 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
         Double colonne2 = 0.0;
         Statement stm = null;
         stm = connection.createStatement();
-        String req1 = "delete from dispru.resultat where codeetat='"+codeEtat+"' AND codedispru='"+codePoste+"' AND session_id=" + session_id + "";
+        String req1 = "delete from dispru.resultat where codeetat='" + codeEtat + "' AND codedispru='" + codePoste + "' AND session_id=" + session_id + "";
         try {
             stm.executeUpdate(req1);
             StringBuilder reqSomme1 = new StringBuilder(

@@ -294,6 +294,9 @@ $(document)
          $('#bt_annuler_update_etat').click(function (e) {
                $("#updateEtat").modal("hide");
          });
+         $('#bt_fermer').click(function (e) {
+                        $("#voirPoste").modal("hide");
+            });
 
                 $("#fileUploader").change(function(evt){
                     var selectedFile = evt.target.files[0];
@@ -383,8 +386,8 @@ $(document)
             });
         }
 
-        function doCreateResultat(data){
-                                $(".imloadAdd").fadeIn("1000");
+                       function doCreateResultat(data){
+                                $(".imloadAdd2").fadeIn("1000");
                                 jsRoutes.controllers.ResultatsController.chargeResultat().ajax({
                                 data : JSON.stringify(data),
                                 contentType : 'application/json',
@@ -417,8 +420,11 @@ $(document)
                         $('#tbodyPosteUp').html('');
                         for (var i in postes) {
                             var html = '';
-                            html='<tr> <td>'+postes[i].codePoste+'</td> <td>'+postes[i].libellePoste+'</td> </tr>';
-                            $('#tbodyPosteUp').append(html);
+                            if(postes[i].libellePoste!=null){
+                               html='<tr> <td>'+postes[i].codePoste+'</td> <td>'+postes[i].libellePoste+'</td> </tr>';
+                               $('#tbodyPosteUp').append(html);
+                            }
+
                         }
                         }
                     }

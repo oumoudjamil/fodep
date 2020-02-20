@@ -2,6 +2,7 @@ package services.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import dao.impl.ReglePonderationDAOImpl;
+import models.PisteDaudit;
 import models.ReglePonderation;
 import services.ReglePonderationService;
 
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 
 public class ReglePonderationServiceImpl implements ReglePonderationService {
     @Override
-    public boolean addReglePonderation(int codeReglePonderation, String codeAttribut, String codePoste, String condition) throws SQLException {
+    public boolean addReglePonderation(int codeReglePonderation, String codeAttribut, String codePoste, String valeur, String operateur, String condition) throws SQLException {
         ReglePonderationDAOImpl ponderationDAO = new ReglePonderationDAOImpl();
-        return ponderationDAO.addReglePonderation(codeReglePonderation, codeAttribut,codePoste,condition);
+        return ponderationDAO.addReglePonderation(codeReglePonderation, codeAttribut,codePoste,valeur,operateur,condition);
     }
 
     @Override
@@ -37,5 +38,11 @@ public class ReglePonderationServiceImpl implements ReglePonderationService {
     public boolean updateReglePonderation(int codeReglePonderation, String codeAttribut, String codePoste, String condition) throws SQLException{
         ReglePonderationDAOImpl ponderationDAO = new ReglePonderationDAOImpl();
         return ponderationDAO.updateReglePonderation(codeReglePonderation,codeAttribut,codePoste,condition);
+    }
+
+    @Override
+    public ArrayList<PisteDaudit> getAllPiste(int page, int perPage, boolean all) throws SQLException {
+        ReglePonderationDAOImpl ponderationDAO = new ReglePonderationDAOImpl();
+        return ponderationDAO.getAllPiste(page,perPage,all);
     }
 }

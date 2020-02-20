@@ -30,7 +30,14 @@
     $('.selectpicker').selectpicker();
     });
     </script>
+    <script type="text/javascript">
+        var labelPagingFirst = 'Premier';
+        var labelPagingPrev = 'Précédent';
+        var labelPagingNext = 'Suivant';
+        var labelPagingLast = 'Dernier';
+        var labelPaging = 'pages';
 
+    </script>
 </head>
 <body id="hcptclient">
 
@@ -64,9 +71,12 @@
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                     <tr>
+                                        <th>N°</th>
                                         <th>Code Poste</th>
                                         <th>Libelle Poste</th>
+                                        <th>Tableau FODEP</th>
                                         <th>Source</th>
+                                        <th>Colonne</th>
                                         <th>Valeur</th>
                                         <th>Commentaire</th>
                                     </tr>
@@ -75,6 +85,10 @@
 
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row">
+                                <div id="divPagination" class="col-md-7"></div>
+                                <div class="col-md-5 pagingLabel"><h6 class="text-primary" id="pagingBottom"></h6></div>
                             </div>
                         </div>
                     </ol>

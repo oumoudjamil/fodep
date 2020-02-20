@@ -6,6 +6,7 @@ import models.Resultat;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -53,12 +54,12 @@ public class ExportController extends Controller{
         try {
 
             JasperPrint jasperPrint = JasperFillManager.fillReport("app/ressources/"+etat+".jasper",parameters, c);
-            JRXlsExporter xlsExporter = new JRXlsExporter();
+            JRXlsxExporter xlsExporter = new JRXlsxExporter();
             xlsExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput("conf/"+etat+".xls"));
+            xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput("conf/"+etat+".xlsx"));
             xlsExporter.exportReport();
 
-            returnedFile = new File("conf/", etat+".xls");
+            returnedFile = new File("conf/", etat+".xlsx");
             Long filesize = null;
             filesize = returnedFile.length();
 

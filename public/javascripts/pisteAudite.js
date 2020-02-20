@@ -11,55 +11,77 @@ $(document)
             $('#etatFodep').val('');
 
         }
-          getAttribut();
-          function getAttribut() {
-            $('#tbodyAttribut').html('');
-            jsRoutes.controllers.AttributController.getAllAttribut().ajax({
+          getPiste();
+          function getPiste(page) {
+            $('#tbodyPiste').html('');
+            $('#pagingTop').html('');
+                        $('#pagingBottom').html('');
+                        $('#divPaginationhaut').empty();
+                        $('#divPaginationhaut').removeData("twbs-pagination");
+                        $('#divPaginationhaut').unbind("page");
+                        $('#divPagination').empty();
+                        $('#divPagination').removeData("twbs-pagination");
+                        $('#divPagination').unbind("page");
+            jsRoutes.controllers.ReglePonderationController.getAllPiste(page).ajax({
                 success: function (data) {
                     if (data.result == "ok") {
                          console.log(data)
-                        var etat = data.attributs;
-                         for (var i in etat) {
+                        var pistes = data.pistes;
+                        var numLine = (data.per_page * data.current_page) - data.per_page;
+                        if (data.current_page == -1){numLine = 0}
+                        console.log(pistes);
+                         for (var i in pistes) {
                             var html = '';
+                            numLine += 1;
                             html += '<tr">';
-                            html += '<td>' + etat[i].codeAttribut +  '</td>';
-                            html += '<td>' + etat[i].libelleAttribut+ '</td>';
-                            html += '<td>' + etat[i].sourceValeur+ '</td>';
-                            html += '<td>' + etat[i].sourceDonnees+ '</td>';
-                            html += '<td><button type="button" class="btn btn-danger btn-icon btn-xs line_button" data-toggle="modal" data-target="#updateAttribut" id="line_action-'+etat[i].codeAttribut+'"> Modifier <i class="fa fa-fire"></i> </button></td>';
-                            html += '<td><button type="button" class="btn btn-black btn-xs line_supp" id="line_supp-'+etat[i].codeAttribut+'"><i class="fa fa-trash"></i> </button></td>';
-
+                            html += '<td>' + numLine + '</td>';
+                            html += '<td>' + pistes[i].codePoste +  '</td>';
+                            html += '<td>' + pistes[i].libellePoste+ '</td>';
+                            html += '<td>' + pistes[i].codeEtat+ '</td>';
+                            if(pistes[i].sourceDonnees2==null){
+                              html += '<td>' + pistes[i].sourceDonnees+ '</td>';
+                            }
+                            else if(pistes[i].sourceDonnees2!=null){
+                             html += '<td>' + pistes[i].sourceDonnees+ '/'+ pistes[i].sourceDonnees2+'</td>';
+                            }
+                            if(pistes[i].sourceValeur2==null){
+                               html += '<td>' + pistes[i].sourceValeur+ '</td>';
+                            }
+                            else if(pistes[i].sourceValeur2!=null){
+                              html += '<td>' + pistes[i].sourceValeur+ '/'+ pistes[i].sourceValeur2+'</td>';
+                            }
+                            if(pistes[i].valeur==null){
+                              html += '<td> </td>';
+                            }else{
+                             html += '<td>' + pistes[i].valeur+ '</td>';
+                            }
+                            html += '<td> </td>';
                             html += '</tr>';
-                            $('#tbodyAttribut').append(html);
+                            $('#tbodyPiste').append(html);
                         }
 
-
-
-                        $(".line_supp")
-                            .click(
-                            function() {
-                            var id = $(this).attr('id');
-                            var sp = id.split('-');
-                            console.log(sp);
-
-                            var reponse = window.confirm("Souhaitez-vous vraiment supprimer cet Attribut ?");
-                                if(reponse)
-                                {
-                                   deleteAttribut(sp[1]);
-                                }
-                          });
-
-                        $(".line_button")
-                            .click(
-                            function() {
-                            var id = $(this).attr('id');
-                            var sp1 = id.split('-');
-                            console.log("id---",sp1[1])
-                             showAttribut(sp1[1]);
-                            $('#id_selected_attribut').val(sp1[1]);
-                        });
-
-
+                                var current_page = data.current_page;
+                                if(current_page == -1){current_page = 1}
+                                $('#pagingTop').append(current_page + '/' + data.total_page + ' ' + labelPaging);
+                                $('#pagingBottom').append(current_page + '/' + data.total_page + ' ' + labelPaging);
+                                $('#divPaginationhaut').twbsPagination({
+                                    totalPages: data.total_page,
+                                    visiblePages: 3,
+                                    startPage: page,
+                                    onPageClick: function (event, numPage) {
+                                        page = numPage;
+                                        getPiste(page);
+                                    }
+                                });
+                                $('#divPagination').twbsPagination({
+                                    totalPages: data.total_page,
+                                    visiblePages: 3,
+                                    startPage: page,
+                                    onPageClick: function (event, numPage2) {
+                                        page = numPage2;
+                                        getPiste(page);
+                                    }
+                                });
 
                     } else if (data.result == "nok") {
                         alert(data.message);

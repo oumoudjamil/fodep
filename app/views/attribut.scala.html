@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Attribut</title>
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.max.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/sb-admin.css")">
@@ -101,7 +100,7 @@
             <div class="modal-body">
                 <ol id="olShowErrorAdd"></ol>
                 <ol id="olShowSuccessAdd"></ol>
-                <table class="table table-bordered table-hover table-striped">
+                <table class="table table-bordered table-hover table-striped" id="tableAttr">
                     <tr>
                         <td class="styleTD" style="padding-top: 4%;" id="tdLabelCode"> Code Attribut<span class="requiered">*</span></td>
                         <td><input type="text" id="codeAttribut" class="form-control" aria-describedby="sizing-addon3"></td>
@@ -119,15 +118,30 @@
                         </select></td>
                     </tr>
                     <tr>
-                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeur"> Source Valeur<span class="requiered">*</span></td>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeur"> Valeur<span class="requiered">*</span></td>
                         <td><select class="form-control" value="0" id="sourceValeur"></select></td>
                     </tr>
+                    <tr id="addDonnee2">
+                        <td><button class="btn success" id="addSource2">Ajouter une autre source de Donnée</button></td>
+                    </tr>
+                    <tr id ="trSource2" style="display:none;">
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelSource2"> Source Donnees<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="sourceDonnee" id="sourceDonnee2">
+                            <option value="">Choisir la source de donnees</option>
+                            <option value="balance">Balance</option>
+                            <option value="client">Client</option>
+                        </select></td>
+                    </tr>
+                    <tr id ="trValeur2" style="display:none;">
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeur2"> Source Valeur<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="0" id="sourceValeur2"></select></td>
+                    </tr>
+
                 </table>
             </div>
             <div class="modal-footer">
-                <span><i class="fa fa-spinner fa-2x fa-spin imloadAdd"></i></span>
                 <span></span>
-                <button type="button" class="btn btn-default" id="createAttribut">Save</button>
+                <button type="button" class="btn btn-danger " id="createAttribut">Ajouter</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalAddAttribut">Cancel</button>
             </div>
         </div>
@@ -160,11 +174,26 @@
                                 <option value="">Choisir le source de donnees</option>
                                 <option value="balance">Balance</option>
                                 <option value="client">Client</option>
-                            </select></td>
+                            </select>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeurUp"> Source Valeur<span class="requiered">*</span></td>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeurUp"> Valeur<span class="requiered">*</span></td>
                             <td><select class="form-control" value="0" id="sourceValeurUp"></select></td>
+                        </tr>
+
+                        <tr id ="trSourceUp2" style="display:none;">
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelSourceUp2"> Source Donnees<span class="requiered">*</span></td>
+                            <td><select class="form-control" value="sourceDonnee" id="sourceDonneeUp2">
+                                <option value="">Choisir le source de donnees</option>
+                                <option value="balance">Balance</option>
+                                <option value="client">Client</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr id ="trValeurUp2" style="display:none;">
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelValeurUp2"> Valeur<span class="requiered">*</span></td>
+                            <td><select class="form-control" value="0" id="sourceValeurUp2"></select></td>
                         </tr>
                         </tbody>
                     </table>

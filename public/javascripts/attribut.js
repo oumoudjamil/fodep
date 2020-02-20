@@ -54,7 +54,6 @@ $(document)
                             function() {
                             var id = $(this).attr('id');
                             var sp1 = id.split('-');
-                            console.log("id---",sp1[1])
                              showAttribut(sp1[1]);
                             $('#id_selected_attribut').val(sp1[1]);
                         });
@@ -85,6 +84,8 @@ $(document)
             var libelleAttribut = $('#libelleAttribut').val();
             var sourceValeur = $('#sourceValeur').val();
             var sourceDonnees = $('#sourceDonnee').val();
+            var sourceValeur2 = $('#sourceValeur2').val();
+            var sourceDonnees2 = $('#sourceDonnee2').val();
 
             if(codeAttribut == ''){
                 doShowErrorAdd(labelVerifyTel);
@@ -96,7 +97,9 @@ $(document)
                     'codeAttribut' : codeAttribut,
                     'libelleAttribut' : libelleAttribut,
                     'sourceValeur' : sourceValeur,
-                    'sourceDonnees' : sourceDonnees
+                    'sourceDonnees' : sourceDonnees,
+                    'sourceValeur2' : sourceValeur2,
+                    'sourceDonnees2' : sourceDonnees2
                 };
 
                 doCreateAttribut(data);
@@ -163,17 +166,28 @@ $(document)
            $(".imload").fadeIn("1000");
                  jsRoutes.controllers.AttributController.getAttributbyCode(codeAttribut).ajax({
                      success: function (data) {
-                     console.log("data--",data)
                          if (data.result == "ok"){
                              var attr = data.attributbyid;
-
+                             console.log(attr);
                              for (var i in attr) {
                                  var html = '';
                                  html += '<tr id="' + attr[i].codeAttribut + '">';
                                  $('#codeAttributUp').val(attr[i].codeAttribut);
                                  $('#libelleAttributUp').val(attr[i].libelleAttribut);
-                                 $('#sourceValeurUp').val(attr[i].sourceValeur);
                                  $('#sourceDonneeUp').val(attr[i].sourceDonnees);
+                                 $('#sourceValeurUp').val(attr[i].sourceValeur);
+
+                                 if(attr[i].sourceValeur2 != null ){
+
+                                    $("#trSourceUp2").show();
+                                    $("#trValeurUp2").show();
+                                    $('#sourceValeurUp2').val(attr[i].sourceValeur2);
+                                    $('#sourceDonneeUp2').val(attr[i].sourceDonnees2);
+                                 }
+                                 else{
+                                    $("#trSourceUp2").hide();
+                                    $("#trValeurUp2").hide();
+                                 }
                                  html += '</tr>';
                                  $('#tbodyAttributUp').append(html);
 
@@ -258,20 +272,75 @@ $(document)
         }
     });
 
+
              function getColumns(table){
                     jsRoutes.controllers.AttributController.getColumnsNames(table).ajax({
                         success: function (data) {
                         if (data.result == "ok") {
                             var data = data.columns;
                             var columns = data.split(',');
-                            $("#sourceValeur").empty();
+                            $("#sourceValeur").html('');
                              for (var i = 1; i < columns.length; i++) {
                                var html = '<option value="'+columns[i]+'">'+columns[i]+'</option>';
                                $('#sourceValeur').append(html);
+                               $('#sourceValeurUp').append(html);
                               }
 
                             }
                         }
                     });
-                    }
+             }
+             function getColumns2(table){
+                    jsRoutes.controllers.AttributController.getColumnsNames(table).ajax({
+                        success: function (data) {
+                        if (data.result == "ok") {
+                            var data = data.columns;
+                            var columns = data.split(',');
+                             $("#sourceValeur2").html('');
+                             for (var i = 1; i < columns.length; i++) {
+                               var html = '<option value="'+columns[i]+'">'+columns[i]+'</option>';
+                               $('#sourceValeur2').append(html);
+                               $('#sourceValeurUp2').append(html);
+                              }
+
+                            }
+                        }
+                    });
+
+        }
+
+        $('#addSource2').click(function (e) {
+            $('#addDonnee2').hide();
+            $("#trSource2").show();
+            $("#trValeur2").show();
+        });
+
+        $("#sourceDonnee2").change(function () {
+            var val = $(this).val();
+            if (val == "client") {
+                getColumns2("client")
+            } else if (val == "balance") {
+                getColumns2("balance")
+            }
+        });
+
+        $("#sourceDonneeUp").change(function () {
+            var val = $(this).val();
+            if (val == "client") {
+                 getColumns2("client")
+            } else if (val == "balance") {
+                 getColumns2("balance")
+            }
+        });
+
+        $("#sourceDonneeUp2").change(function () {
+            var val = $(this).val();
+            if (val == "client") {
+                getColumns2("client")
+            } else if (val == "balance") {
+                getColumns("balance")
+            }
+        });
+
+
 });

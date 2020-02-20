@@ -86,24 +86,52 @@ public class ResultatsController extends Controller {
             String session_id = json.findPath("session").textValue();
 
             String ponderation = "";
-            String mnt4 = "";
+            String mnt4 ;
             Double colonne2 = 0.0;
             Double colonne3 = 0.0;
             int mnt6 = 0;
-            int mnt7 = 0;
+            Double mnt7 = 0.0;
+            Double mnt8 = 0.0;
+            Double mnt9 = 0.0;
+
+            ponderation = getPonderation(codePoste);
+            mnt4 = getResult(codePoste, codeEtat, "mnt4");
+
+            if (ponderation.equals("") || ponderation.isEmpty()) {
+                ponderation = "0";
+            }
+
+            if (mnt4.equals("") || mnt4.isEmpty()) {
+                colonne2 = 0.0;
+            }
+            else {
+                colonne2 = Double.parseDouble(mnt4) / 1000000;
+            }
+
+            String creance = getResult(codePoste, codeEtat, "mnt5");
+            if (creance.equals("") || creance.isEmpty()) {
+                colonne3 = 0.0;
+            }else{
+                colonne3 = Double.parseDouble(creance) / 1000000;
+            }
 
             if(codeEtat.replaceAll(" ","").equals("EP20")){
-                ponderation = getPonderation(codePoste);
-                mnt4 = getResult(codePoste, codeEtat, "mnt4");
-
-                if (ponderation.equals("") || ponderation.isEmpty()) {
-                    ponderation = "0";
-                }
-                if (mnt4.equals("") || mnt4.isEmpty()) {
-                    mnt4 = "0";
-                }
-                colonne2 = Double.parseDouble(mnt4) / 1000000;
                 colonne3 = ((Double.parseDouble(ponderation) * colonne2));
+            }
+
+            if(codeEtat.replaceAll(" ","").equals("EP09")){
+
+                String provision = getResult(codePoste, codeEtat, "mnt7");
+
+                if (provision.equals("") || provision.isEmpty()) {
+                    mnt7 = 0.0;
+                }else{
+                    mnt9 = Double.parseDouble(mnt4) + Double.parseDouble(provision);
+                }
+                if(mnt9 != 0.0){
+                    mnt9 = mnt9 / 1000000;
+                }
+
             }
 
             ResultatsFodepServiceImpl resultatsFodepService = new ResultatsFodepServiceImpl();
@@ -112,7 +140,7 @@ public class ResultatsController extends Controller {
                 resultat = resultatsFodepService.chargeTotaux(codeEtat,codePoste,libellePoste,session_id);
             }else {
                 resultat = resultatsFodepService.chargeResultat(codeEtat, codePoste, libellePoste, ponderation + "%", colonne2,
-                        colonne3, session_id,mnt6,mnt7);
+                        colonne3, session_id,mnt6,mnt7, mnt9);
             }
             Logger.info("REPONCE CREATION " + resultat);
 

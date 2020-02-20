@@ -75,6 +75,7 @@ GET    /reglesPonderation/del                  controllers.ReglePonderationContr
 GET    /reglesPonderation/getById              controllers.ReglePonderationController.getPonderationbyCode(codePonderation: Int, codeAttribut: String, codePoste: String)
 GET    /reglesPonderation/update               controllers.ReglePonderationController.updatePonderation(codePonderation: Int, codeAttribut: String, codePoste: String, condition: String)
 GET    /reglesPonderation/addFile              controllers.ReglePonderationController.addPonderationWhithFile(codePonderation: Int, codeAttribut: String, codePoste: String, condition: String)
+GET    /reglesPonderation/getAllPiste          controllers.ReglePonderationController.getAllPiste(page: Int?=1, per_page: Int?=10)
 
 #SESSION
 GET    /session                                controllers.HomeController.sessionFodep

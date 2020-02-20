@@ -13,19 +13,22 @@ import java.util.ArrayList;
 public class AttributDAOImpl implements AttributDAO {
 
     @Override
-    public boolean addAttribut(String codeAttribut, String libelleAttribut, String sourceValeur, String sourceDonnees) throws SQLException {
+    public boolean addAttribut(String codeAttribut, String libelleAttribut, String sourceValeur, String sourceDonnees,String sourceValeur2, String sourceDonnees2) throws SQLException {
         Connection connection = DB.getConnection();
 
         try {
         StringBuilder req =  new StringBuilder(
-            " INSERT INTO DISPRU.ATTRIBUTS(codeattribut,libelleattribut,sourcevaleur,sourcedonnees) " +
-                " VALUES (?,?,?,?)");
+            " INSERT INTO DISPRU.ATTRIBUTS(codeattribut,libelleattribut,sourcevaleur,sourcedonnees,sourcevaleur2,sourcedonnees2) " +
+                " VALUES (?,?,?,?,?,?)");
 
         PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
+
         preparedStatement.setString(1, codeAttribut);
         preparedStatement.setString(2, libelleAttribut);
         preparedStatement.setString(3, sourceValeur);
         preparedStatement.setString(4, sourceDonnees);
+        preparedStatement.setString(5, sourceValeur2);
+        preparedStatement.setString(6, sourceDonnees2);
 
         preparedStatement .executeUpdate();
         Logger.debug("REQ " + req);
@@ -57,6 +60,8 @@ public class AttributDAOImpl implements AttributDAO {
                 r.setLibelleAttribut(resultSet.getString("libelleattribut"));
                 r.setSourceValeur(resultSet.getString("sourcevaleur"));
                 r.setSourceDonnees(resultSet.getString("sourcedonnees"));
+                r.setSourceDonnees2(resultSet.getString("sourcedonnees2"));
+                r.setSourceValeur2(resultSet.getString("sourcevaleur2"));
 
                 attributs.add(r);
             }
@@ -121,6 +126,8 @@ public class AttributDAOImpl implements AttributDAO {
                 r.setLibelleAttribut(resultSet.getString("libelleattribut"));
                 r.setSourceValeur(resultSet.getString("sourcevaleur"));
                 r.setSourceDonnees(resultSet.getString("sourcedonnees"));
+                r.setSourceDonnees2(resultSet.getString("sourcedonnees2"));
+                r.setSourceValeur2(resultSet.getString("sourcevaleur2"));
 
                 attributs.add(r);
             }

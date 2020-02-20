@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class AttributServiceImpl implements AttributService {
     @Override
-    public boolean addAttribut(String codeAttribut, String libelleAttribut, String sourceValeur, String sourceDonnees) throws SQLException {
+    public boolean addAttribut(String codeAttribut, String libelleAttribut, String sourceValeur, String sourceDonnees,String sourceValeur2, String sourceDonnees2) throws SQLException {
         AttributDAOImpl attributDAO = new AttributDAOImpl();
-        return attributDAO.addAttribut(codeAttribut, libelleAttribut, sourceValeur, sourceDonnees);
+        return attributDAO.addAttribut(codeAttribut, libelleAttribut, sourceValeur, sourceDonnees,sourceValeur2,sourceDonnees2);
     }
 
     @Override

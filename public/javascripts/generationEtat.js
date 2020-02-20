@@ -148,7 +148,8 @@ $(document)
                                 success : function (json) {
                                 console.log(json);
                                     if (json.result == "ok") {
-                                        doShowSuccess(json.message);
+                                    $(".imloadAdd").fadeOut("1000");
+                                       // alert(json.message);
                                          //getPosteFodep();
                                     }
                                     else{

@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.PisteDaudit;
 import models.ReglePonderation;
 import play.Logger;
 import play.i18n.Messages;
@@ -64,12 +65,15 @@ public class ReglePonderationController extends Controller {
         String codeReglePonderation = json.findPath("codeReglePonderation").textValue();
         String codeAttribut = json.findPath("codeAttribut").textValue();
         String codePoste = json.findPath("codePoste").textValue();
+        String source = json.findPath("source").textValue();
+        String operateur = json.findPath("operateur").textValue();
+        String valeur = json.findPath("valeur").textValue();
         String condition = json.findPath("condition").textValue();
 
         try {
             ReglePonderationServiceImpl ponderationService = new ReglePonderationServiceImpl();
 
-            boolean newPondera = ponderationService.addReglePonderation(Integer.parseInt(codeReglePonderation),codeAttribut,codePoste,condition);
+            boolean newPondera = ponderationService.addReglePonderation(Integer.parseInt(codeReglePonderation),codeAttribut,codePoste,valeur,operateur,condition);
 
             Logger.info("REPONCE CREATION " + newPondera);
 
@@ -109,7 +113,7 @@ public class ReglePonderationController extends Controller {
         try {
             ReglePonderationServiceImpl ponderationService = new ReglePonderationServiceImpl();
 
-            boolean newPondera = ponderationService.addReglePonderation(codeReglePonderation,codeAttribut,codePoste,condition);
+            boolean newPondera = true ;//ponderationService.addReglePonderation(codeReglePonderation,codeAttribut,codePoste,condition);
 
 
             Logger.info("REPONCE CREATION " + newPondera);
@@ -151,6 +155,8 @@ public class ReglePonderationController extends Controller {
 
     public Result getPonderationbyCode(int codePonderation, String codeAttribut, String codePoste) throws SQLException {
         Logger.debug("showdetail -- codePonderation :" + codePonderation);
+        Logger.debug("showdetail -- codeAttribut :" + codeAttribut);
+        Logger.debug("showdetail -- codePoste :" + codePoste);
         ReglePonderationServiceImpl service = new ReglePonderationServiceImpl();
         ArrayList<ReglePonderation> ponderations = service.getReglePonderationByCode(codePonderation,codeAttribut,codePoste);
 
@@ -191,6 +197,41 @@ public class ReglePonderationController extends Controller {
             objectNode.put("code", "3001");
             objectNode.put("message", "Erreur interne Parametres incorrecte.");
             Log.logActionOutput(objectNode.toString());
+            return ok(objectNode);
+        }
+    }
+
+    public Result getAllPiste(int page, int perPage) throws SQLException {
+        ObjectNode objectNode = Json.newObject();
+        String session = session(SESSION_CONNECTED);
+        if (session == null) {
+            objectNode = getObjectNode("nosession", "3001", Messages.get("error.session"));
+            Log.logActionOutput(objectNode.toString());
+            return unauthorized(objectNode);
+        }
+        else {
+            ReglePonderationServiceImpl ponderationService = new ReglePonderationServiceImpl();
+            ArrayList<PisteDaudit> piste = ponderationService.getAllPiste(page, perPage, false);
+            int total = Utils.getTotalRows("select count(*) as total from dispru.postesfodep p, dispru.attributs a, dispru.details_regle_ponderation d " +
+                    "WHERE p.codeposte=d.codeposte AND d.codeattribut=a.codeattribut");
+            Logger.debug("total",total);
+            int pageNumber = 0;
+            if (total != 0) {
+                pageNumber = total / perPage;
+                if (total % perPage > 0) {
+                    pageNumber++;
+                }
+            }
+            objectNode.put("result", "ok");
+            objectNode.put("code", "200");
+            objectNode.put("message", "");
+            objectNode.put("pistes", Json.toJson(piste));
+            objectNode.put("total", total);
+            objectNode.put("total_page", pageNumber);
+            objectNode.put("current_page", page);
+            objectNode.put("per_page", perPage);
+            Logger.debug("pistes " + Json.toJson(piste).toString());
+
             return ok(objectNode);
         }
     }

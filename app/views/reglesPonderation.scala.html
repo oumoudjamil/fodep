@@ -77,6 +77,10 @@
                                         <th>Code Ponderation</th>
                                         <th>Code Attribut</th>
                                         <th>Code Poste</th>
+                                        <th>Etat Fodep</th>
+                                        <th>Source</th>
+                                        <th>Colonne</th>
+                                        <th>Valeur</th>
                                         <th>Condition</th>
                                         <th colspan="2">Actions</th>
 
@@ -122,22 +126,60 @@
                         <td><select class="form-control" value="0" id="codePonderation" readonly></select></td>
                     </tr>
                     <tr>
-                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelAttribut"> Code Attribut<span class="requiered">*</span></td>
-                        <td><select class="form-control" value="0" id="codeAttribut" readonly></select></td>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelAttribut"> Attribut<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="0" id="codeAttribut" readonly>
+                            <option value="">Choisir un attribut</option>
+                        </select></td>
                     </tr>
                     <tr>
-                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelPoste"> Code Poste<span class="requiered">*</span></td>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelEtat"> Etat Fodep<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="0" id="codeEtat" readonly>
+                            <option value="">Choisir un etat</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelPoste"> Poste Fodep<span class="requiered">*</span></td>
                         <td><select class="form-control" value="0" id="codePoste" readonly></select></td>
                     </tr>
                     <tr>
-                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelCondition"> Conditions<span class="requiered">*</span></td>
-                        <td><input type="text" id="condition" class="form-control" aria-describedby="sizing-addon3"></td>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelSource" readonly> Source</td>
+                        <td id="sourceD"></td>
+                    </tr>
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelOpp"> Operateur<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="0" id="operateur" readonly>
+                            <option value="">Choisir un oppérateur</option>
+                            <option value="com">Commence</option>
+                            <option value="ter">Termine</option>
+                            <option value="=">Egal</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelCondition"> Valeur (délimiteur=",")<span class="requiered">*</span></td>
+                        <td><input type="text" id="valeur" class="form-control" aria-describedby="sizing-addon3"></td>
+                    </tr>
+
+                    <tr id ="trSource2" style="display:none;">
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelSource2" readonly> Source</td>
+                        <td id="sourceD2"></td>
+                    </tr>
+                    <tr id ="trOperande2" style="display:none;">
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelOpp2"> Operateur<span class="requiered">*</span></td>
+                        <td><select class="form-control" value="0" id="operateur2" readonly>
+                            <option value="">Choisir un oppérateur</option>
+                            <option value="com">Commence</option>
+                            <option value="ter">Termine</option>
+                            <option value="=">Egal</option>
+                        </select></td>
+                    </tr>
+                    <tr id ="trValeur2" style="display:none;">
+                        <td class="styleTD" style="padding-top: 4%;" id="tdLabelCondition2"> Valeur (délimiteur=",")<span class="requiered">*</span></td>
+                        <td><input type="text" id="valeur2" class="form-control" aria-describedby="sizing-addon3"></td>
                     </tr>
 
                 </table>
             </div>
             <div class="modal-footer">
-                <span><i class="fa fa-spinner fa-2x fa-spin imloadAdd"></i></span>
                 <span></span>
                 <button type="button" class="btn btn-danger btn-icon" id="createPonderation">Ajouter</button>
                 <button type="button" class="btn btn-danger btn-icon" data-dismiss="modal" id="closeModalAddPonderation">Annuler</button>
@@ -160,21 +202,51 @@
                         <tbody id="tbodyPonderationUp">
                         <tr>
                             <td class="styleTD" style="padding-top: 4%;" id="tdLabelCodeUp"> Code Regle Ponderation<span class="requiered">*</span></td>
-                            <td><select class="form-control" value="0" id="codePonderationUp"></select></td>
+                            <td><select class="form-control" value="0" id="codePonderationUp" disabled></select></td>
                         </tr>
                         <tr>
                             <td class="styleTD" style="padding-top: 4%;" id="tdLabelAttributUp"> Code Attribut<span class="requiered">*</span></td>
-                            <td><select class="form-control" value="0" id="codeAttributUp"></select></td>
+                            <td><select class="form-control" value="0" id="codeAttributUp" disabled></select></td>
                         </tr>
                         <tr>
-                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelPosteUp"> Code Poste<span class="requiered">*</span></td>
-                            <td><select class="form-control" value="0" id="codePosteUp"></select></td>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelPosteUp"> Poste<span class="requiered">*</span></td>
+                            <td><input type="text" id="codePosteUp" class="form-control" aria-describedby="sizing-addon3"></td>
                         </tr>
                         <tr>
-                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelConditionUp"> Conditions<span class="requiered">*</span></td>
-                            <td><input type="text" id="conditionUp" class="form-control" aria-describedby="sizing-addon3"></td>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelSourceUp" readonly> Source</td>
+                            <td id="sourceDUp"></td>
+                        </tr>
+                        <tr>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelOppUp"> Operateur<span class="requiered">*</span></td>
+                            <td><select class="form-control" value="0" id="operateurUp" readonly>
+                                <option value="">Choisir un oppérateur</option>
+                                <option value="com">Commence</option>
+                                <option value="ter">Termine</option>
+                                <option value="=">Egal</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelConditionUp"> Valeur (délimiteur=",")<span class="requiered">*</span></td>
+                            <td><input type="text" id="valeurUp" class="form-control" aria-describedby="sizing-addon3"></td>
                         </tr>
 
+                        <tr id ="trSourceUp2" style="display:none;">
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelSourceUp2" readonly> Source</td>
+                            <td id="sourceDUp2"></td>
+                        </tr>
+                        <tr id ="trOperandeUp2" style="display:none;">
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelOppUp2"> Operateur<span class="requiered">*</span></td>
+                            <td><select class="form-control" value="0" id="operateurUp2" readonly>
+                                <option value="">Choisir un oppérateur</option>
+                                <option value="com">Commence</option>
+                                <option value="ter">Termine</option>
+                                <option value="=">Egal</option>
+                            </select></td>
+                        </tr>
+                        <tr id ="trValeurUp2" style="display:none;">
+                            <td class="styleTD" style="padding-top: 4%;" id="tdLabelConditionUp2"> Valeur (délimiteur=",")<span class="requiered">*</span></td>
+                            <td><input type="text" id="valeurUp2" class="form-control" aria-describedby="sizing-addon3"></td>
+                        </tr>
                         </tbody>
                     </table>
             </div>

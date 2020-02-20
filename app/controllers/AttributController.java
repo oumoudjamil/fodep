@@ -54,11 +54,13 @@ public class AttributController extends Controller {
         String libelleAttribut = json.findPath("libelleAttribut").textValue();
         String sourceValeur = json.findPath("sourceValeur").textValue();
         String sourceDonnees = json.findPath("sourceDonnees").textValue();
+        String sourceValeur2 = json.findPath("sourceValeur2").textValue();
+        String sourceDonnees2 = json.findPath("sourceDonnees2").textValue();
 
         try {
             AttributServiceImpl attributService = new AttributServiceImpl();
 
-            boolean newAttribut = attributService.addAttribut(codeAttribut,libelleAttribut,sourceValeur,sourceDonnees);
+            boolean newAttribut = attributService.addAttribut(codeAttribut,libelleAttribut,sourceValeur,sourceDonnees,sourceValeur2,sourceDonnees2);
 
             Logger.info("REPONCE CREATION " + newAttribut);
 

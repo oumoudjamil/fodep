@@ -126,7 +126,7 @@ public class PosteFodepDAOImpl implements PosteFodepDAO {
         Statement statement;
         ArrayList<PosteFodep> postes = new ArrayList<>();
         StringBuilder request = new StringBuilder(
-                "SELECT * from dispru.postesfodep where codeetat='"+codeEtat+"'" );
+                "SELECT * from dispru.postesfodep where codeetat='"+codeEtat+"' order by position" );
         try {
             statement = c.createStatement();
             ResultSet resultSet = statement.executeQuery(request.toString());

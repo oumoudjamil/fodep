@@ -116,6 +116,7 @@ public class HomeController extends Controller{
                 routes.javascript.ReglePonderationController.getPonderationbyCode(),
                 routes.javascript.ReglePonderationController.updatePonderation(),
                 routes.javascript.ReglePonderationController.addPonderationWhithFile(),
+                routes.javascript.ReglePonderationController.getAllPiste(),
                 routes.javascript.SessionController.getAll(),
                 routes.javascript.SessionController.getActiveSession(),
                 routes.javascript.SessionController.deleteSession(),

@@ -2,6 +2,7 @@ package dao.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import dao.ReglePonderationDAO;
+import models.PisteDaudit;
 import models.ReglePonderation;
 import play.Logger;
 import play.db.DB;
@@ -13,20 +14,22 @@ import java.util.ArrayList;
 public class ReglePonderationDAOImpl implements ReglePonderationDAO {
 
     @Override
-    public boolean addReglePonderation(int codeReglePonderation, String codeAttribut, String codePoste, String condition) throws SQLException {
+    public boolean addReglePonderation(int codeReglePonderation, String codeAttribut, String codePoste, String valeur, String operateur,String condition) throws SQLException {
 
         Connection connection = DB.getConnection();
 
         try {
             StringBuilder req =  new StringBuilder(
-                    " INSERT INTO DISPRU.details_regle_ponderation(coderegleponderation,codeattribut,codeposte,conditions) " +
-                            " VALUES (?,?,?,?)");
+                    " INSERT INTO DISPRU.details_regle_ponderation(coderegleponderation,codeattribut,codeposte,valeur,operateur,conditions) " +
+                            " VALUES (?,?,?,?,?,?)");
 
             PreparedStatement preparedStatement = connection.prepareStatement(req.toString());
             preparedStatement.setInt(1, codeReglePonderation);
             preparedStatement.setString(2, codeAttribut);
             preparedStatement.setString(3, codePoste);
-            preparedStatement.setString(4, condition);
+            preparedStatement.setString(4, valeur);
+            preparedStatement.setString(5, operateur);
+            preparedStatement.setString(6, condition);
             preparedStatement .executeUpdate();
             Logger.debug("REQ " + req);
 
@@ -169,5 +172,52 @@ public class ReglePonderationDAOImpl implements ReglePonderationDAO {
 
 
         return true;
+    }
+
+    @Override
+    public ArrayList<PisteDaudit> getAllPiste(int page, int perPage, boolean all) throws SQLException {
+        Connection c = DB.getConnection();
+        Statement statement;
+        ArrayList<PisteDaudit> recettes = new ArrayList<>();
+        StringBuilder request = new StringBuilder(
+                "SELECT * from dispru.postesfodep p, dispru.attributs a, dispru.details_regle_ponderation d " +
+                        " WHERE p.codeposte=d.codeposte AND d.codeattribut=a.codeattribut" );
+        if (!all) {
+            if (page == 1) {
+                request.append(" LIMIT ").append(perPage);
+            } else if (page > -1) {
+                request.append(" LIMIT ").append(perPage).append("OFFSET ")
+                        .append((page - 1) * perPage);
+            } else {
+                request.append(" LIMIT ").append(perPage);
+            }
+        }
+        try {
+            statement = c.createStatement();
+            ResultSet resultSet = statement.executeQuery(request.toString());
+            while (resultSet.next()) {
+                PisteDaudit r = new PisteDaudit();
+                r.setCodePoste(resultSet.getString("codeposte"));
+                r.setLibellePoste(resultSet.getString("libelleposte"));
+                r.setCodeEtat(resultSet.getString("codeetat"));
+                r.setSourceDonnees(resultSet.getString("sourcedonnees"));
+                r.setSourceValeur(resultSet.getString("sourcevaleur"));
+                r.setValeur(resultSet.getString("valeur"));
+                r.setCodeAttribut(resultSet.getString("codeattribut"));
+                r.setLibelleAttribut(resultSet.getString("libelleattribut"));
+                r.setSourceDonnees2(resultSet.getString("sourcedonnees2"));
+                r.setSourceValeur2(resultSet.getString("sourcevaleur2"));
+                r.setCondition(resultSet.getString("conditions"));
+                recettes.add(r);
+            }
+            return recettes;
+        } catch (Exception e) {
+            Logger.info("mess " + e.getMessage());
+            e.printStackTrace();
+            return recettes;
+        }
+        finally {
+            c.close();
+        }
     }
 }
