@@ -56,7 +56,7 @@ public class ExportController extends Controller{
             JasperPrint jasperPrint = JasperFillManager.fillReport("app/ressources/"+etat+".jasper",parameters, c);
             JRXlsxExporter xlsExporter = new JRXlsxExporter();
             xlsExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput("conf/"+etat+".xlsx"));
+            xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput("app/ressources/"+etat+".xlsx"));
             xlsExporter.exportReport();
 
             returnedFile = new File("conf/", etat+".xlsx");

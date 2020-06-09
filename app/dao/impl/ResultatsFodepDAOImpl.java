@@ -17,7 +17,7 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
         String result = "";
         StringBuilder request = new StringBuilder(
                 "select coderegleponderation from dispru.details_regle_ponderation d " +
-                        "where d.codeposte='" + codePoste + "'");
+                "where d.codeposte='" + codePoste + "'");
         try {
             statement = c.createStatement();
             ResultSet resultSet = statement.executeQuery(request.toString());
@@ -101,6 +101,22 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
                             "and a.codeattribut ='"+codeAttribut+"' "+
                             "and colonne = '" + colone + "'");
 
+                    //////////CAS PARTICULIERS //////
+                    if(codeEtat.equals("EP09")){
+                        if(codePoste.equals("RC006")){
+                            getAttribut.append(" JOIN pme on client.client_id=pme.cliend_id " +
+                                    "and client.client_id not in (select client_id from clientele_detail)");
+                        }
+                        if(codePoste.equals("RC009")){
+                            getAttribut.append(" JOIN pme on client.client_id=pme.cliend_id " +
+                                    "JOIN clientele_detail c on client.client_id=c.cliend_id");
+                        }
+                        if(codePoste.equals("RC010")){
+                            getAttribut.append(" JOIN clientele_detail c on client.client_id=c.cliend_id " +
+                                    "and client.client_id not in (select client_id from pme)");
+                        }
+                    }
+                    //////////////////////////
                     ResultSet resultSet3 = c.createStatement().executeQuery(getAttribut.toString());
                     if (resultSet3 != null) {
                         while (resultSet3.next()) {
@@ -134,7 +150,7 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
 
     @Override
     public boolean chargeResultat(String codeEtat, String codePoste, String libellePoste, String colonne1, Double colonne2,
-                                  Double colonne3, String session_id, int mnt6, Double mnt7, Double mnt9) throws SQLException {
+                                  Double colonne3, String session_id, Double mnt6, Double mnt7, Double mnt9) throws SQLException {
 
         Connection connection = DB.getConnection();
 
@@ -157,14 +173,12 @@ public class ResultatsFodepDAOImpl implements ResultatsFodepDAO {
             preparedStatement.setDouble(5, colonne2);
             preparedStatement.setDouble(6, colonne3);
             preparedStatement.setInt(7, Integer.parseInt(session_id));
-            preparedStatement.setInt(8, mnt6);
+            preparedStatement.setDouble(8, mnt6);
             preparedStatement.setDouble(9, mnt7);
             preparedStatement.setDouble(10, mnt9);
             preparedStatement.setString(11, "");
             preparedStatement.executeUpdate();
 
-            if(codeEtat.equals("EP10"))
-            Logger.debug("REQ " + req);
 
             return true;
         } catch (Exception e) {

@@ -1,6 +1,4 @@
-/**
- * Created by MOMBOY on 05/02/2015.
- */
+
 $(document)
     .ready(
     function (e) {

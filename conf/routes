@@ -12,6 +12,11 @@ GET     /tableauDeBord                      controllers.HomeController.dashbord(
 GET     /generateEtat                       controllers.HomeController.generateEtat()
 GET     /pisteAudite                        controllers.HomeController.pisteAudite()
 
+#CAS PARTICULIERS
+GET     /casParticulier                     controllers.HomeController.casParticulier()
+POST     /chargeClientele                    controllers.CasParticulierController.chargeClinetele()
+GET     /getClient                          controllers.ClientFodepController.getAll()
+
 #UTILISATEUR
 GET     /utilisateur                        controllers.HomeController.utilisateur()
 GET     /utilisateur/getAll                 controllers.UtilisateurController.getAll(page: Int?=1, per_page: Int?=10)
@@ -86,9 +91,9 @@ GET    /session/del                            controllers.SessionController.del
 GET    /session/update                         controllers.SessionController.updateStatus(idSession: Int, status: String)
 
 #RESULTAT
-GET    /getExpo/:codePoste                     controllers.ResultatsController.getExpoNette(codePoste: String)
-#GET    /getResult/:codePoste/:codeEtat/:colonne                     controllers.ResultatsController.getResult(codePoste: String, codeEtat: String, colonne: String)
-POST    /result/add                             controllers.ResultatsController.chargeResultat()
+GET    /getExpo/:codePoste                          controllers.ResultatsController.getExpoNette(codePoste: String)
+#GET    /getResult/:codePoste/:codeEtat/:colonne    controllers.ResultatsController.getResult(codePoste: String, codeEtat: String, colonne: String)
+POST    /result/add                                 controllers.ResultatsController.chargeResultat()
 
 #EXPORT
 POST         /generateReport                   controllers.ExportController.generateReport()

@@ -87,9 +87,7 @@ public class PisteDaudit {
         this.condition = condition;
     }
 
-    public String getLibellePoste() {
-        return libellePoste;
-    }
+    public String getLibellePoste() { return libellePoste; }
 
     public void setLibellePoste(String libellePoste) {
         this.libellePoste = libellePoste;

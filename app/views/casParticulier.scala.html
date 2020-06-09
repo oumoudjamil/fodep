@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Balance</title>
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.max.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/sb-admin.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/font-awesome/css/font-awesome.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/Aristo/Aristo.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.11.1.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/jquery.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/TweenMax.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/resizeable.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.max.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap-select.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/plugins/jquery.numeric.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/plugins/jquery.twbsPagination.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/plugins/api.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/casParticuliers.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@routes.HomeController.jsRoutes"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $('.selectpicker').selectpicker();
+    });
+    </script>
+    <script type="text/javascript">
+        var labelPagingFirst = 'Premier';
+        var labelPagingPrev = 'Précédent';
+        var labelPagingNext = 'Suivant';
+        var labelPagingLast = 'Dernier';
+        var labelPaging = 'pages';
+
+    </script>
+</head>
+<body id="hcptclient">
+
+
+<div id="wrapper">
+    <!-- Navigation -->
+    @enteteMenu()
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="">
+                <div class="col-lg-12">
+                    <div class="page-header" id="hcptclientA">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>
+                                    <a class="trait" href="/creditchannel">CAS PARTICULIERS</a>
+                                    <small></small>
+
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <ol class="breadcrumb">
+
+                            <button type="button" class="btn btn-default btn-xs btn-detail" id="chargeClientele" >Charge Clientele Detail</button>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

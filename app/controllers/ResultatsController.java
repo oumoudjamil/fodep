@@ -10,10 +10,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import services.impl.ResultatsFodepServiceImpl;
 import tools.Log;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import static tools.Const.SESSION_CONNECTED;
 import static tools.Utils.getObjectNode;
 
@@ -89,14 +87,13 @@ public class ResultatsController extends Controller {
             String mnt4 ;
             Double colonne2 = 0.0;
             Double colonne3 = 0.0;
-            int mnt6 = 0;
+            Double mnt6 = 0.0;
             Double mnt7 = 0.0;
             Double mnt8 = 0.0;
             Double mnt9 = 0.0;
 
             ponderation = getPonderation(codePoste);
             mnt4 = getResult(codePoste, codeEtat, "mnt4");
-
             if (ponderation.equals("") || ponderation.isEmpty()) {
                 ponderation = "0";
             }
@@ -119,19 +116,22 @@ public class ResultatsController extends Controller {
                 colonne3 = ((Double.parseDouble(ponderation) * colonne2));
             }
 
+            String creancerisque = getResult(codePoste, codeEtat, "mnt6");
+            if (creancerisque.equals("") || creancerisque.isEmpty()) {
+                mnt6 = 0.0;
+            }else{
+                mnt6 = Double.parseDouble(creancerisque) / 1000000;
+            }
+
+            String provision = getResult(codePoste, codeEtat, "mnt7");
+
+            if (provision.equals("") || provision.isEmpty()) {
+                mnt7 = 0.0;
+            }else{
+                mnt7 = Double.parseDouble(provision) / 1000000;
+            }
             if(codeEtat.replaceAll(" ","").equals("EP09")){
-
-                String provision = getResult(codePoste, codeEtat, "mnt7");
-
-                if (provision.equals("") || provision.isEmpty()) {
-                    mnt7 = 0.0;
-                }else{
-                    mnt9 = Double.parseDouble(mnt4) + Double.parseDouble(provision);
-                }
-                if(mnt9 != 0.0){
-                    mnt9 = mnt9 / 1000000;
-                }
-
+                mnt9 = colonne2 + mnt7;
             }
 
             ResultatsFodepServiceImpl resultatsFodepService = new ResultatsFodepServiceImpl();
@@ -139,8 +139,8 @@ public class ResultatsController extends Controller {
             if(codePoste.replaceAll(" ","").equals("RC276")){
                 resultat = resultatsFodepService.chargeTotaux(codeEtat,codePoste,libellePoste,session_id);
             }else {
-                resultat = resultatsFodepService.chargeResultat(codeEtat, codePoste, libellePoste, ponderation + "%", colonne2,
-                        colonne3, session_id,mnt6,mnt7, mnt9);
+                resultat = resultatsFodepService.chargeResultat(codeEtat, codePoste, libellePoste,
+                        ponderation + "%", colonne2, colonne3, session_id,mnt6,mnt7, mnt9);
             }
             Logger.info("REPONCE CREATION " + resultat);
 
@@ -149,7 +149,6 @@ public class ResultatsController extends Controller {
                 objectNode.put("result", "nok");
                 objectNode.put("code", "3000");
                 objectNode.put("message", message);
-
                 return ok(objectNode);
 
             }

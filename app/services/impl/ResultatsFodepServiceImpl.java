@@ -19,7 +19,7 @@ public class ResultatsFodepServiceImpl implements ResultatsFodepService {
         return getResult.getResult(codePoste,codeEtat,colone);
     }
     @Override
-    public boolean chargeResultat(String codeEtat, String codePoste, String libellePoste , String colonne1, Double colonne2, Double colonne3, String session_id, int mnt6, Double mnt7,Double mnt9) throws SQLException {
+    public boolean chargeResultat(String codeEtat, String codePoste, String libellePoste , String colonne1, Double colonne2, Double colonne3, String session_id, Double mnt6, Double mnt7,Double mnt9) throws SQLException {
         ResultatsFodepDAOImpl resultatsFodepDAO = new ResultatsFodepDAOImpl();
         return resultatsFodepDAO.chargeResultat(codeEtat,codePoste,libellePoste,colonne1,colonne2, colonne3,session_id,mnt6,mnt7,mnt9);
     }

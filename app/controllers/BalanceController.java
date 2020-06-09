@@ -10,7 +10,6 @@ import play.mvc.Result;
 import services.impl.BalanceServiceImpl;
 import tools.Log;
 import tools.Utils;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

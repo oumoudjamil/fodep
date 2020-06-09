@@ -72,6 +72,11 @@ public class HomeController extends Controller{
                 .render());
     }
 
+    public Result casParticulier() {
+        return ok(casParticulier
+                .render());
+    }
+
     public Result logout() {
         session().clear();
         return ok(login.render());
@@ -137,7 +142,9 @@ public class HomeController extends Controller{
                 routes.javascript.ResultatsController.getExpoNette(),
                 //routes.javascript.ResultatsController.getResult(),
                 routes.javascript.ResultatsController.chargeResultat(),
-                routes.javascript.ExportController.generateReport()
+                routes.javascript.ExportController.generateReport(),
+                routes.javascript.CasParticulierController.chargeClinetele(),
+                routes.javascript.ClientFodepController.getAll()
                 ));
     }
 
